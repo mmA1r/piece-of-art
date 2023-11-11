@@ -1,0 +1,26 @@
+@mixin phone_width {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin desktop_width {
+    @media screen and (min-width: 769px) {
+        @content;
+    }
+}
+
+@mixin narrow_screen {
+    @media screen and (max-height: 436px) {
+        @content;
+    }
+}
+
+// hover only where hover exist make sence
+@mixin desktop_hover {
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            @content;
+        }
+    }
+}

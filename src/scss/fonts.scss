@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300;500&family=Kanit:wght@100;200&family=Mooli&family=Quicksand:wght@300;400&display=swap');
+
+%hero_font {
+    font-family: 'Jura', sans-serif;
+    font-size: 32px;
+    
+    color: currentColor;
+}
+
+%hero-sub-title_font {
+    font-family: 'Jura', sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+
+    @media screen and (max-width: 768px){
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-weight: 100;
+    }
+
+    @media screen and (min-width: 769px) {
+        letter-spacing: 17px;
+        font-weight: 500;
+    }
+    
+    color: currentColor;
+}

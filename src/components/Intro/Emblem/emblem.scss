@@ -1,0 +1,42 @@
+@use '/src/scss/index.scss' as *;
+
+.intro__emblem {
+    width: 100%;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    @include phone_width {
+        color: var(--mail-color_light);
+    }
+
+    @include desktop_width {
+        position: absolute;
+        color: var(--additional-color_light);
+    }
+
+    @include narrow_screen { top: -5vh; }
+}
+
+.intro__title { @extend %hero_font; }
+
+.intro_icons {
+    $size: 120px;
+
+    width: $size;
+    height: $size;
+
+    margin-top: 14px;
+
+    fill: none;
+
+    >path { fill: currentColor; }
+
+    @include narrow_screen { 
+        width: 90px; 
+        height: 90px;
+        margin-top: 4px;
+    }
+}

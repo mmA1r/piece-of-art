@@ -1,0 +1,234 @@
+@use '/src/scss/index.scss' as *;
+
+[data-name="skies"] {
+    left: -15%;
+    height: calc(var(--index) * 15);
+
+    clip-path: polygon(0 100%, 100% 100%, 100% 99%, 0 99%);
+    
+    &.image_appear { clip-path: polygon(0 15%, 100% 40%, 100% 100%, 0 100%); }
+
+    @include parallax(.1, 50vh);
+}
+
+[data-name="thoughts"] {
+    right: 0;
+    height: calc(var(--index) * 11);
+
+    clip-path: polygon(0% 0%, 0% 100%, 0 100%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 0%);
+
+    &.image_appear { clip-path: polygon(0% 0%, 0% 100%, 65% 100%, 65% 0, 75% 0, 75% 100%, 100% 100%, 100% 0%); }
+
+    @include parallax(.2, 70vh);
+}
+
+[data-name="scarecrow"] {
+    left: 20%;
+    height: calc(var(--index) * 8);
+
+    clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%, 50% 100%, 50% 0);
+
+    &.image_appear { clip-path: polygon(25% 0, 100% 0, 100% 65%, 75% 100%, 0 100%, 0 35%); }
+
+    @include parallax(.3, 90vh);
+}
+
+[data-name="azula"] {
+    left: 30%;
+    height: calc(var(--index) * 9);
+
+    clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%, 50% 100%, 50% 0);
+
+    &.image_appear {
+        clip-path: polygon(0 0, 80% 0, 100% 20%, 100% 100%, 20% 100%, 0 70%);
+    };
+
+    @include parallax(.4, 95vh);
+}
+
+[data-name="island"] {
+    left: 0%;
+    height: calc(var(--index) * 11);
+
+    clip-path: polygon(0% 0%, 0% 100%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%, 100% 100%, 100% 0%);
+
+    &::after { top: 0 };
+
+    &.image_appear { 
+        clip-path: polygon(0% 0%, 0% 100%, 0 55%, 100% 55%, 100% 70%, 0 70%, 0 100%, 100% 100%, 100% 0%);
+    };
+
+    @include parallax(.2, 100vh);
+}
+
+[data-name="heart"] {
+    right: 15%;
+    height: calc(var(--index) * 13);
+
+    &::after, &::before {
+        display: block;
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 100%;
+        height: 100%;
+        background-color: var(--waterfall-main-color);
+        color: var(--waterfall-main-color);
+        transform: translate3d(-50%, -50%, 0);
+
+        transition: var(--main-slow-transition);
+    };
+
+    &.image_appear {
+        &::after, &::before {
+            background-color: transparent;
+            transform: rotate(45deg) translate3d(-70%, 0, 0);
+        }
+        &::after {
+            width: 107px;
+            height: 107px;
+            border: 7px solid;
+        }
+        &::before {
+            width: 200px;
+            height: 200px;
+            border: 25px solid ;
+        }
+    };
+
+    @include parallax(.1, 130vh);
+}
+
+[data-name="graveyard"] {
+    left: 0;
+    height: calc(var(--index) * 9);
+
+    @include parallax(.2, 80vh);
+}
+
+[data-name="lake"] {
+    right: 10%;
+    height: calc(var(--index) * 8);
+
+    clip-path: polygon(50% 0, 50% 0, 50% 0, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 0);
+
+    &.image_appear { clip-path: polygon(15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%, 0% 15%); };
+
+    @include parallax(.1, 95vh);
+}
+
+
+[data-name="dragon"] {
+    left: 30%;
+    height: calc(var(--index) * 13);
+
+    &::after, &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -1px;
+        left: -1px;
+        height: 101%;
+        width: 101%;
+        background-color: var(--waterfall-main-color);
+
+        transition: var(--main-slow-transition);
+    }
+
+    &.image_appear { 
+        &::after {
+            width: 101%;
+            height: 20px;
+            top: 50%;
+        }
+        &::before {
+            width: 20px;
+            height: 101%;
+            left: 80%;
+        };
+    };
+
+    @include parallax(.1, 145vh);
+}
+
+[data-name="humility"] {
+    left: 10vw;
+    height: calc(var(--index) * 7);
+
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+
+    &.image_appear {
+        clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
+    };
+
+    @include parallax(.2, 145vh);
+}
+
+[data-name="nightmare"] {
+    right: 10%;
+    height: calc(var(--index) * 6);
+
+    clip-path: circle(0% at 50% 50%);
+
+    &.image_appear { clip-path: circle(50% at 50% 50%); };
+
+    @include parallax(.3, 80vh);
+}
+
+[data-name="memories"] {
+    height: calc(var(--index) * 10);
+
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 100% 0, 0 0, 0 100%, 0 100%);
+
+    &.image_appear { clip-path: polygon(0 0, 100% 0, 100% 100%, 90% 100%, 90% 0, 80% 0, 80% 100%, 0 100%); };
+
+    @include parallax(.1, 85vh);
+}
+
+[data-name="puppet"] {
+    right: 10%;
+    height: calc(var(--index) * 8);
+
+    clip-path: polygon(0 0, 0 0, 100% 0, 100% 100%, 0 100%, 100% 100%, 100% 0, 0 0);
+
+    &.image_appear { clip-path: polygon(0 0, 85% 0, 100% 0, 100% 100%, 0 100%, 100% 0, 85% 0, 0 85%); }
+
+    @include parallax(.2, 110vh);
+}
+
+[data-name="fool"] {
+    height: calc(var(--index) * 12);
+
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);;
+
+    &.image_appear { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+
+    @include parallax(.3, 130vh);
+}
+
+[data-name="train"] {
+    left: 5vw;
+    height: calc(var(--index) * 10);
+
+    clip-path: polygon(0 0, 0 0, 0 100%, 100% 100%, 100% 0, 100% 100%, 0 100%, 0 0, 0 0);
+
+    &.image_appear { clip-path: polygon(50% 0, 0 40%, 0 50%, 60% 0, 100% 0, 100% 100%, 0 100%, 0% 40%, 0 0); }
+
+    @include parallax(.1, 150vh);
+    top: auto !important;
+    bottom: 10vh;
+}
+
+[data-name="girl"] {
+    right: 10vw;
+    height: calc(var(--index) * 12);
+
+    clip-path: polygon(50% 0, 50% 0, 50% 0, 50% 100%, 50% 100%, 50% 100%, 50% 100%, 50% 0);
+
+    &.image_appear { clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); };
+
+    @include parallax(.4, 155vh);
+    top: auto !important;
+    bottom: 35vh;
+}

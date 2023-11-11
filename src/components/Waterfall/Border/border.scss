@@ -1,0 +1,20 @@
+@use '/src/scss/index.scss' as *;
+
+.intro__border {
+    position: absolute;
+    top: calc(var(--index) * -9.7);
+
+    width: 100%;
+    height: calc(var(--index) * 10);
+
+    fill: none;
+
+    pointer-events: none;
+
+    >path { fill: var(--waterfall-main-color); }
+
+    @include narrow_screen {
+        height: 100px;
+        top: -99px;
+    }
+}

@@ -1,0 +1,27 @@
+@use '/src/scss/index.scss' as *;
+
+.fallback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--fallback-color_light);
+
+    color: var(--main-color_light);
+}
+
+.fallback__loading-wrapper {
+    position: relative;
+    width: 70px;
+    height: 65px;
+
+    animation: air_swirling 4s linear infinite reverse;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    >svg { path { fill: currentColor; } }
+}

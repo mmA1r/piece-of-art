@@ -1,0 +1,19 @@
+@keyframes starfall {
+    0% { transform: translate3d( 0,0,0); }
+    5% { opacity: 1; }
+    7% { transform: translate3d(-40vw, 20vh, 0px); opacity: 0; }
+    99% { transform: translate3d( 0,0,0); opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes clouds {
+    0% { transform: translateX(0); }
+    30% { transform: translateX(-7px); }
+    70% { transform: translateX(7px); }
+    100% { transform: translateX(0); }
+}
+
+@keyframes air_swirling {
+    0% { transform: rotateZ(0deg); }
+    100% { transform: rotateZ(360deg); }
+}

@@ -1,4 +1,47 @@
-#root {
+.main {
+    $intro-height: 100vh;
+    $waterfall-height: 460vh;
+
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    height: fit-content;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    display: flex;
+    flex-direction: column;
+    
+    @media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
+        perspective: calc(var(--index) * 1px);
+        transform-style: preserve-3d;
+
+        >section { position: absolute; }
+
+        >.intro {
+            top: 0;
+
+            height: $intro-height !important;
+        }
+
+        >.waterfall {
+            top: $intro-height;
+
+            height: $waterfall-height !important;
+        }
+
+        >.footer {
+            top: calc($intro-height + $waterfall-height);
+        }
+    }
+}
+
+.gallery { 
+    position: relative;
+    
+    width: 100vw;
+    height: 100vh;
 }
 
 @media (prefers-reduced-motion: no-preference) {

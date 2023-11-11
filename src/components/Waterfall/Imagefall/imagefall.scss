@@ -1,0 +1,73 @@
+@use '/src/scss/index.scss' as *;
+
+.imagefall {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    
+    width: 100%;
+    height: 100%;
+}
+
+.imagefall__section {
+    position: relative;
+    width: 100%;
+    height: 20%;
+    &:first-child { top: 20vh; height: 120vh; }
+    &:last-child { bottom: 0; height: 50%; }
+
+    @media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
+        perspective: 10px;
+    }
+}
+
+.imagefall__image-wrapper {
+    $transition: var(--main-slow-transition);
+    position: absolute;
+
+    height: 100%;
+
+    background-size: cover;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+
+    width: auto;
+
+    &:nth-child(odd) { aspect-ratio: 16/8; }
+    &:nth-child(even) { aspect-ratio: 15/9; }
+
+    margin: 10vw;
+
+    transition: $transition;
+
+    will-change: clip-path;
+
+    .image_visible & {
+        $names : 'skies', 'thoughts', 'puppet', 'azula', 'lake',
+        'island', 'dragon', 'heart', 'humility', 'nightmare', 'memories', 'scarecrow', 'fool', 
+        'train', 'girl', 'graveyard';
+
+        
+        @each $name in $names {
+            &[data-name=#{$name}] {
+                background-image: -webkit-image-set(
+                    url('/assets/waterfall/avif/#{$name}.avif') type('image/avif'),
+                    url('/assets/waterfall/webp/#{$name}.webp') type('image/webp'),
+                    url('/assets/waterfall/jpg/#{$name}.jpg') type('image/jpg')
+                );
+                background-image: image-set(
+                    url('/assets/waterfall/avif/#{$name}.avif') type('image/avif'),
+                    url('/assets/waterfall/webp/#{$name}.webp') type('image/webp'),
+                    url('/assets/waterfall/jpg/#{$name}.jpg') type('image/jpg')
+                );
+            }
+        }
+    }
+}
+
+.image_appear {
+    &:nth-child(even) { animation: sideToSide 10s linear alternate infinite }
+    &:nth-child(odd) { animation: sideToSide 10s linear alternate-reverse infinite; }
+}

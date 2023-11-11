@@ -3,9 +3,6 @@
 
     color-scheme: light dark;
 
-    color: #213547;
-    background-color: #ffffff;
-
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -13,6 +10,20 @@
     -webkit-text-size-adjust: 100%;
 
     --index: calc(1vh + 1vw);
+
+    --main-color_light: #fff;
+    --additional-color_light: #2D8DFF;
+    --fallback-color_light: #6C99E3;
+
+    --main-color_dark: #1B1B1D;
+    --additional-color_dark: #EF4C19;
+    --fallback-color_dark: #0E0E12;
+
+    --transition: .7s ease-in-out;
+}
+
+html, body, #root {
+    height: 100%;
 }
 
 * {
@@ -27,8 +38,6 @@ a {
 }
 
 body {
-    display: flex;
-    place-items: center;
     min-width: 280px;
     min-height: 100vh;
 
@@ -53,19 +62,23 @@ button {
 
     &:focus { outline: none; }
     &:focus-visible {
-        outline: 2.5px solid $color;
+        outline: 2.5px solid white;
     }
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-    a:hover {
-        color: #747bff;
+        color: var(--additional-color_light);
+        background-color: var(--main-color_light);
     }
     button {
         background-color: #f9f9f9;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color: var(--additional-color_dark);
+        background-color: var(--main-color_dark);
     }
 }
