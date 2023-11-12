@@ -14,19 +14,28 @@
     flex-direction: column;
     
     @media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
-        perspective: calc(var(--index) * 1px);
+        perspective: var(--index);
         transform-style: preserve-3d;
 
         >section { position: absolute; }
 
         >.intro {
+            $distance: -.7;
+
             top: 0;
+            z-index: 0;
+
+            transform: 
+                translateZ(calc(var(--index) * $distance))
+                scale(abs($distance - 1))
+            ;
 
             height: $intro-height !important;
         }
 
         >.waterfall {
             top: $intro-height;
+            z-index: 1;
 
             height: $waterfall-height !important;
         }

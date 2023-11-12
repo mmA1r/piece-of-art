@@ -11,10 +11,10 @@
 
     pointer-events: none;
 
-    >path { fill: var(--waterfall-main-color); }
+    >path { fill: var(--main-color_light); }
 
     @include narrow_screen {
-        height: 100px;
-        top: -99px;
+        height: 75px;
+        top: -74px;
     }
 }

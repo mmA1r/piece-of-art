@@ -9,11 +9,9 @@
 
     background-color: var(--main-color_light);
 
-    @media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
-        &, * { transform-style: preserve-3d; }
-    }
-
-    //@include parallax(false, $top);
+    //@media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
+    //    &, * { transform-style: preserve-3d; }
+    //}
 }
 
 //.phrase-wrapper {

@@ -11,7 +11,7 @@ import './app.scss'
 const Main = () => <div className={"main"}>
     <Suspense fallback={<Fallback />}>
         <Intro />
-        {/*<Waterfall />*/}
+        <Waterfall />
     </Suspense>
 </div>
 

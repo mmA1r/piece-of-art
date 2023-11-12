@@ -3,7 +3,7 @@
 .intro__gallery {
     $desktop_padding: 0 30px;
     $desktop_min-height: 330px;
-    $desktop-narrow_min-height: 280px;
+    $desktop-narrow_min-height: 260px;
     $phone_padding: 0 24px;
 
     display: flex;
@@ -15,7 +15,7 @@
     width: 100%;
     height: 100%;
 
-    >h2 { @extend %hero-sub-title_font; }
+    >h2 { @extend %hero-sub-title_font; user-select: none; }
 
     @include phone_width {
         align-items: flex-end;

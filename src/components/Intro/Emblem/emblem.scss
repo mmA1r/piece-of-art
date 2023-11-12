@@ -17,7 +17,7 @@
         color: var(--additional-color_light);
     }
 
-    @include narrow_screen { top: -5vh; }
+    @include narrow_screen { top: -10vh; }
 }
 
 .intro__title { @extend %hero_font; }
