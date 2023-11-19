@@ -25,3 +25,9 @@
     
     color: currentColor;
 }
+
+%waterfall-text {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 400;
+    color: var(--waterfall-second-color);
+}

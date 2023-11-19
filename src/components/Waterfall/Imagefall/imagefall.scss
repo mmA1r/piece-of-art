@@ -19,12 +19,12 @@
     &:last-child { bottom: 0; height: 50%; }
 
     @media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
-        perspective: 10px;
+        perspective: calc(var(--index) * 5);
     }
 }
 
 .imagefall__image-wrapper {
-    $transition: var(--main-slow-transition);
+    //$transition: var(--main-slow-transition);
     position: absolute;
 
     height: 100%;
@@ -35,39 +35,18 @@
 
     width: auto;
 
-    &:nth-child(odd) { aspect-ratio: 16/8; }
-    &:nth-child(even) { aspect-ratio: 15/9; }
-
     margin: 10vw;
 
-    transition: $transition;
+    //transition: $transition;
 
     will-change: clip-path;
 
-    .image_visible & {
-        $names : 'skies', 'thoughts', 'puppet', 'azula', 'lake',
-        'island', 'dragon', 'heart', 'humility', 'nightmare', 'memories', 'scarecrow', 'fool', 
-        'train', 'girl', 'graveyard';
-
+    .image_visible {
         
-        @each $name in $names {
-            &[data-name=#{$name}] {
-                background-image: -webkit-image-set(
-                    url('/assets/waterfall/avif/#{$name}.avif') type('image/avif'),
-                    url('/assets/waterfall/webp/#{$name}.webp') type('image/webp'),
-                    url('/assets/waterfall/jpg/#{$name}.jpg') type('image/jpg')
-                );
-                background-image: image-set(
-                    url('/assets/waterfall/avif/#{$name}.avif') type('image/avif'),
-                    url('/assets/waterfall/webp/#{$name}.webp') type('image/webp'),
-                    url('/assets/waterfall/jpg/#{$name}.jpg') type('image/jpg')
-                );
-            }
-        }
     }
 }
 
 .image_appear {
-    &:nth-child(even) { animation: sideToSide 10s linear alternate infinite }
-    &:nth-child(odd) { animation: sideToSide 10s linear alternate-reverse infinite; }
+    //&:nth-child(even) { animation: sideToSide 10s linear alternate infinite }
+    //&:nth-child(odd) { animation: sideToSide 10s linear alternate-reverse infinite; }
 }
