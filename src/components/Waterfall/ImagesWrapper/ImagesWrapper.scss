@@ -9,14 +9,14 @@
     
     width: 100%;
     height: 100%;
+
+    justify-content: flex-end;
 }
 
-.imagefall__section {
+.waterfall__section {
     position: relative;
     width: 100%;
-    height: 20%;
-    &:first-child { top: 20vh; height: 120vh; }
-    &:last-child { bottom: 0; height: 50%; }
+    height: 30%;
 
     @media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
         perspective: calc(var(--index) * 5);

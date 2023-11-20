@@ -1,0 +1,15 @@
+.waterfall__image-container {
+    position: absolute;
+
+}
+
+.waterfall__image {
+    width: auto;
+    height: calc(var(--index) * 2);
+
+    min-width: 100%;
+    min-height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}

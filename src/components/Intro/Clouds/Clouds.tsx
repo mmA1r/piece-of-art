@@ -15,34 +15,41 @@ const Clouds = () => {
     
     const cache : { [key: string]: HTMLImageElement } = {}; // сюда скидываются кэшированные картинки
 
-    const observer = new IntersectionObserver(entries => {      // когда появляется и исчезает из view port-а
-        entries.forEach(entry => {
-            if (entry.target.classList.contains('intro__clouds')) {
-                if (entry.isIntersecting) {
-                    clouds.forEach(({ current }, index) => {            // подгружаем картинку из кэша
-                        if (current && !current.hasAttribute('src')) {  // и убираем low-resolution задник
-                            current.removeAttribute('style');
-                            current.setAttribute('src', cache[index].src);
-                        }
-                    });
-                } else {
-                    clouds.forEach(({ current }, index) => {    // удаляем src, чтобы не нагружало оперативу
-                        if (current) {                          // и добавляем low-resolution задник на всякий
-                            current.removeAttribute('src');
-                            current.style.backgroundImage = cache[index].style.backgroundImage;
-                        }
-                    });
-                }
-            }
-        });
-    });
-
     useEffect(() => {
         const cloudWrapper = cloudWrapperRef.current;
+
+        const observer = new IntersectionObserver(entries => {      // когда появляется и исчезает из view port-а
+            entries.forEach(entry => {
+                if (entry.target.classList.contains('intro__clouds')) {
+                    if (entry.isIntersecting) {
+                        clouds.forEach(({ current }, index) => {           // подгружаем картинку из кэша
+                            if (current && !current.hasAttribute('src')) { // и убираем low-resolution задник
+                                current.removeAttribute('style');
+                                current.setAttribute('src', cache[index].src);
+                            }
+                        });
+                    } else {
+                        clouds.forEach(({ current }, index) => {    // удаляем src, чтобы не нагружало оперативу
+                            if (current) {                          // и добавляем low-resolution задник на всякий
+                                current.removeAttribute('src');
+                                current.style.backgroundImage = cache[index].style.backgroundImage;
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
         if (cloudWrapper) { 
             observer.observe(cloudWrapper);
         }
-    });
+
+        return () => {
+            if (cloudWrapper) {
+                observer.unobserve(cloudWrapper);
+            }
+        }
+    }, []);
 
     const chacheImages = (image: HTMLImageElement, index: number) => {
         cache[index] = image;

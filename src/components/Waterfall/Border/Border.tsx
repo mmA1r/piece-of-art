@@ -1,32 +1,55 @@
 import { useEffect, useRef } from 'react';
-import { useInView } from 'react-intersection-observer';
 
 import './border.scss';
 
 const Border = () => {
-    const [ref, inView] = useInView({ threshold: 1 });
+    const svgRef = useRef<SVGSVGElement>(null);
     const pathRef = useRef<SVGPathElement>(null);
     const curveRef = useRef<SVGAnimateElement>(null);
     const circleRef = useRef<SVGAnimateElement>(null);
 
     useEffect(() => {
-        const path = pathRef.current;
-        const curve = curveRef.current;
-        const circle = circleRef.current;
-        
-        if(inView && path && curve && circle) {
-            if (path.id === 'border-path_curve') {
-                circle.beginElement();
-                path.setAttribute('id', 'border-path_circle');
-            } else {
-                curve.beginElement();
-                path.setAttribute('id', 'border-path_curve');
+        const svg = svgRef.current;
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const curve = curveRef.current;
+                const circle = circleRef.current;
+                const path = pathRef.current;
+                const svg = entry.target;
+    
+                if (curve && circle && path) {
+                    if (entry.isIntersecting && svg.classList.contains('ready-to-change')) {
+                        if (path.id === 'border-path_curve') {
+                            circle.beginElement();
+                            path.setAttribute('id', 'border-path_circle');
+                        } else {
+                            curve.beginElement();
+                            path.setAttribute('id', 'border-path_curve');
+                        }
+                        svg.classList.remove('ready-to-change');
+                    } else {
+                        svg.classList.add('ready-to-change');
+                    }
+                }
+            });
+        }, {
+            threshold: 1
+        });
+
+        if (svg) { 
+            observer.observe(svg); 
+        }
+
+        return () => {
+            if (svg) { 
+                observer.unobserve(svg); 
             }
-        } 
-    });
+        }
+    }, []);
 
     return (
-        <svg ref={ref} className={"intro__border"} viewBox="0 0 390 130" preserveAspectRatio={"none"}>
+        <svg ref={svgRef} className={"intro__border ready-to-change"} viewBox="0 0 390 130" preserveAspectRatio={"none"}>
             <path ref={pathRef} id={"border-path_curve"} d="M0 0C253.5 167.4 382 90.8 390 0V130H0V0Z"/>
             <animate
                 ref={circleRef}

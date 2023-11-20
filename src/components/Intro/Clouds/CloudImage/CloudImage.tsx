@@ -87,6 +87,7 @@ const CloudImage = forwardRef((
                     style={style}
                     ref={imgRef}
                     alt={alt}
+                    loading='lazy'
                     role='presentation'
                 />
             </picture>

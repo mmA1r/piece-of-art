@@ -1,24 +1,39 @@
-import { useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useEffect, useRef } from 'react';
 
-import Imagefall from './Imagefall/Imagefall';
+import ImagesWrapper from './ImagesWrapper/ImagesWrapper';
 import Border from './Border/Border';
 
-import './waterfall.scss'
+import './waterfall.scss';
 
 const TextWrapper = ({ classNameName, content }: { classNameName: string; content: string }) => {
-    const [ref, inView, entry] = useInView({ triggerOnce: true });
+    const textRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => { 
-        if (inView && entry) {
-            const parent = entry.target.parentElement;
-            if (parent) parent.classList.add('text_appear');
-        } 
-    });
+    useEffect(() => {
+        const text = textRef.current;
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('text_appear');
+                    observer.disconnect();
+                }
+            });
+        });
+
+        if (text) { 
+            observer.observe(text); 
+        }
+
+        return () => {
+            if (text) {
+                observer.unobserve(text);
+            }
+        }
+    }, []);
 
     return (
-        <div className={classNameName}>
-            <h2 ref={ref}>{ content }</h2>
+        <div ref={textRef} className={classNameName}>
+            <h2>{ content }</h2>
         </div>
     );
 }
@@ -31,7 +46,7 @@ const Waterfall = () => {
             <TextWrapper classNameName='phrase-wrapper' content='piece of art'/>
             <TextWrapper classNameName='sentence-wrapper' content='A website can be art too'/>
             <TextWrapper classNameName='sentence-wrapper' content='right?'/>
-            {/*<Imagefall />*/}
+            <ImagesWrapper />
         </section>
     );
 }
