@@ -60,10 +60,10 @@ const Clouds = () => {
             ref={cloudWrapperRef}
             className={"intro__clouds"}
         >
-            <CloudImage cacheImageSrc={chacheImages} index={0} ref={backgroundRef} alt={'background'} name={'back-cloud'}/>
-            <CloudImage cacheImageSrc={chacheImages} index={1} ref={leftCloudRef} alt={'part of cloud'} name={'left-cloud'}/>
-            <CloudImage cacheImageSrc={chacheImages} index={2} ref={rightCludRef} alt={'part of cloud'} name={'right-cloud'}/>
-            <CloudImage cacheImageSrc={chacheImages} index={3} ref={foregroundRef} alt={'foreground'} name={'fore-cloud'}/>
+            <CloudImage cacheImageSrc={chacheImages} index={0} ref={backgroundRef}  name={'back-cloud'}/>
+            <CloudImage cacheImageSrc={chacheImages} index={1} ref={leftCloudRef} name={'left-cloud'}/>
+            <CloudImage cacheImageSrc={chacheImages} index={2} ref={rightCludRef} name={'right-cloud'}/>
+            <CloudImage cacheImageSrc={chacheImages} index={3} ref={foregroundRef}  name={'fore-cloud'}/>
         </div>
     );
 }

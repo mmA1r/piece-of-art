@@ -5,6 +5,7 @@ import Fallback from './components/Fallback/Fallback';
 
 const Intro = lazy(() => import('./components/Intro/Intro'));
 const Waterfall = lazy(() => import('./components/Waterfall/Waterfall'));
+const Footer = lazy(() =>  import('./components/Footer/Footer'));
 
 import './app.scss'
 
@@ -12,6 +13,7 @@ const Main = () => <div className={"main"}>
     <Suspense fallback={<Fallback />}>
         <Intro />
         <Waterfall />
+        <Footer />
     </Suspense>
 </div>
 

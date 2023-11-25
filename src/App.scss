@@ -42,6 +42,7 @@
 
         >.footer {
             top: calc($intro-height + $waterfall-height);
+            height: 100vh;
         }
     }
 }

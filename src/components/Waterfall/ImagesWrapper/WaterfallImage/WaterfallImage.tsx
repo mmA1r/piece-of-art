@@ -53,42 +53,50 @@ const WaterfallImage = ({ name }: { name: string } ) => {
                 }
             });
         }, {
-            rootMargin: "7px"
+            rootMargin: "14px"
         });
 
 
         if (picture) {
             observer.observe(picture);
         }
+
+        if (image) {
+            image.addEventListener('load', onLoad);
+        }
         
         return () => {
             if (picture) {
                 observer.unobserve(picture);
-            }
+            } 
         }
     }, []);
 
+    const onLoad = () => {
+        const image = imageRef.current;
+        if (image) {
+            image.classList.add('image_appear');
+            image.removeEventListener('load', onLoad);
+        }
+    }
+
     return (
-        <div
-            className={"waterfall__image-container"}
-        >
-            <picture ref={pictureRef}>
-                <source data-src-type={"srcset"} data-src={`/assets/waterfall/avif/${name}.avif`} type="image/avif" />
-                <source data-src-type={"srcset"} data-src={`/assets/waterfall/avif/${name}.webp`} type="image/webp" />
-                <source data-src-type={"srcset"} data-src={`/assets/waterfall/avif/${name}.jpg`} type="image/jpg" />
-                <img
-                    className={`waterfall__image ${name}_image`}
-                    data-src={`/assets/waterfall/avif/${name}.jpg`}
-                    data-src-type={"src"}
-                    style={{ backgroundImage: `url(/assets/waterfall/low-res/${name}_low-res.jpg)`}}
-                    ref={imageRef}
-                    width={180}
-                    height={120}
-                    loading='lazy'
-                    role='presentation'
-                />
-            </picture>
-        </div>
+        <picture className={`waterfall__image-container ${name}_image`} ref={pictureRef}>
+            <source data-src-type={"srcset"} data-src={`/assets/waterfall/avif/${name}.avif`} type="image/avif" />
+            <source data-src-type={"srcset"} data-src={`/assets/waterfall/avif/${name}.webp`} type="image/webp" />
+            <source data-src-type={"srcset"} data-src={`/assets/waterfall/avif/${name}.jpg`} type="image/jpg" />
+            <img
+                className={'waterfall__image'}
+                data-src={`/assets/waterfall/avif/${name}.jpg`}
+                data-src-type={"src"}
+                style={{ backgroundImage: `url(/assets/waterfall/low-res/${name}_low-res.jpg)`}}
+                ref={imageRef}
+                width={16}
+                height={9}
+                loading='lazy'
+                role='presentation'
+            />
+        </picture>
     );
 }
 

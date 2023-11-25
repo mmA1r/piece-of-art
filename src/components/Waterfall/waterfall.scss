@@ -9,9 +9,11 @@
 
     background-color: var(--main-color_light);
 
-    //@media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
-    //    &, * { transform-style: preserve-3d; }
-    //}
+    @media (-webkit-transform-3d) and (prefers-reduced-motion: no-preference) {
+        &, & .imagefall, & .waterfall__section {
+            transform-style: preserve-3d;
+        }
+    }
 }
 
 .sentence-wrapper, .phrase-wrapper {
@@ -21,6 +23,8 @@
         $font-size_phone: 24px;
 
         position: relative;
+
+        color: var(--additional-color_light);
 
         @extend %waterfall-text;
         @include phone_width { font-size: $font-size_phone; }

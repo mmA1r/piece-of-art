@@ -18,7 +18,7 @@ const TextWrapper = ({ classNameName, content }: { classNameName: string; conten
                     observer.disconnect();
                 }
             });
-        });
+        }, { threshold: .7 });
 
         if (text) { 
             observer.observe(text); 

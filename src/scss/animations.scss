@@ -17,3 +17,21 @@
     0% { transform: rotateZ(0deg); }
     100% { transform: rotateZ(360deg); }
 }
+
+@keyframes image-sliding {
+    20% {
+        transform: translate3d(-2%, -2%, 0);
+    }
+    40% {
+        transform: translate3d(2%, 2%, 0);
+    }
+    60% {
+        transform: translate3d(2%, -2%, 0);
+    }
+    80% {
+        transform: translate3d(-2%, 2%, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}

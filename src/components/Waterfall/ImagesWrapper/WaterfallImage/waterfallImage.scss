@@ -1,15 +1,235 @@
+@use '/src/scss/index.scss' as *;
+
+@mixin parallax ($distance: 0, $img-size: false) {
+    transform: 
+        translateZ(calc(var(--index) * $distance))
+        scale(abs($distance - 1))
+    ;
+
+    @if $img-size {
+        >img { height: calc(var(--index) * $img-size); }
+    }
+}
+
 .waterfall__image-container {
+    display: block;
     position: absolute;
 
+    @include desktop_width {
+        &:nth-child(odd) {
+            >.image_appear {
+                animation: image-sliding 25s linear infinite;
+            }
+        }
+        &:nth-child(even) {
+            >.image_appear {
+                animation: image-sliding 25s linear infinite alternate;
+            }
+        }
+    }
 }
 
 .waterfall__image {
     width: auto;
-    height: calc(var(--index) * 2);
+    height: calc(var(--index) * 9);
 
     min-width: 100%;
     min-height: 100%;
 
     object-fit: cover;
     object-position: center;
+
+    background-color: transparent;
+    will-change: transform;
+
+    transition: clip-path var(--slow-transition);
+}
+
+//////////////////////////////////
+
+.purple_image {
+    top: 20%;
+    left: -7%;
+
+    >img {
+        height: calc(var(--index) * 12);
+        clip-path: polygon(0 100%, 100% 100%, 100% 95%, 0% 95%);
+        &.image_appear { clip-path: polygon(0 100%, 100% 100%, 100% 20%, 0 0); }
+    }
+}
+
+.thoughts_image {
+    top: 30%;
+    right: 7%;
+
+    >img {
+        clip-path: polygon(75% 0, 75% 0, 75% 100%, 75% 100%, 75% 0, 60% 0, 60% 100%, 60% 100%, 60% 0);
+        &.image_appear { clip-path: polygon(75% 0, 100% 0, 100% 100%, 75% 100%, 75% 0, 60% 0, 60% 100%, 0 100%, 0 0); }
+    }
+
+    @include parallax(.15, 10);
+}
+
+.scarecrow_image {
+    left: 10%;
+    top: 45%;
+    z-index: -1;
+
+    >img {
+        clip-path: polygon(0 0, 100% 0, 100% 1%, 0 1%);
+        &.image_appear { clip-path: polygon(0 20%, 100% 0%, 100% 80%, 0% 100%); }
+    }
+
+    @include parallax(.2);
+}
+
+.azula_image {
+    top: 50%;
+    right: 30%;
+
+    >img {
+        clip-path: polygon(50% 0, 50% 0, 50% 100%, 50% 100%);
+        &.image_appear { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    }
+
+    @include parallax(.4);
+}
+
+.float_image {
+    bottom: 14%;
+    right: 7%;
+
+    >img {
+        clip-path: polygon(0 1%, 100% 1%, 100% 0, 0 0);
+        &.image_appear { clip-path: polygon(0 85%, 100% 100%, 100% 15%, 0 0); }
+    }
+
+    @include parallax(.1);
+}
+
+.heart_image {
+    bottom: 20%;
+    left: -2%;
+
+    >img {
+        height: calc(var(--index) * 12);
+        clip-path: polygon(0 100%, 100% 100%, 100% 99%, 0 99%);
+        &.image_appear { clip-path: polygon(0 40%, 100% 10%, 100% 100%, 0% 100%); }
+    }
+}
+
+///////////////////////////////////////
+
+.samurai_image {
+    top: 10%;
+    right: 10%;
+
+    >img { 
+        height: calc(var(--index) * 10);
+        clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%, 0 100%, 100% 100%, 100% 65%, 0 65%);
+        &.image_appear { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 70%, 100% 70%, 100% 55%, 0 55%); }
+    }
+}
+
+.dragon_image {
+    top: 30%;
+    left: 10%;
+
+    >img { 
+        clip-path: polygon(65% 51%, 100% 50%, 100% 50%, 30% 50%, 0 50%, 0 50%);
+        &.image_appear { clip-path: polygon(70% 0%, 100% 20%, 100% 100%, 30% 100%, 0 80%, 0 0); }
+    }
+}
+
+.humility_image {
+    bottom: 35%;
+    left: -3%;
+
+    >img {
+        clip-path: polygon(100% 0, 100% 0%, 100% 100%, 99% 100%);
+        &.image_appear { clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); }
+    }
+
+    @include parallax(.2, 11);
+}
+
+.koto_image {
+    bottom: 25%;
+    right: -7%;
+
+    >img {
+        clip-path: polygon(0 0, 0 0, 1% 100%, 0 100%);
+        &.image_appear { clip-path: polygon(0 0, 75% 0, 100% 100%, 25% 100%); }
+    }
+}
+
+.morning_image {
+    bottom: 15%;
+    left: 30%;
+
+    >img {
+        clip-path: polygon(0 0, 100% 0, 100% 1%, 0 1%);
+        &.image_appear { clip-path: polygon(0 10%, 100% 0%, 100% 90%, 0% 100%); }
+    }
+
+    @include parallax(.1, 11);
+}
+
+/////////////////////////////////////////////
+
+.violet_image {
+    bottom: 25%;
+    left: 10%;
+
+    >img {
+        clip-path: polygon(50% 0, 49% 0, 51% 100%, 50% 100%);
+        &.image_appear { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+    }
+
+    @include parallax(.3);
+}
+
+.memories_image {
+    right: 10%;
+
+    >img {
+        clip-path: polygon(40% 0, 40% 0, 40% 100%, 40% 100%, 40% 0, 30% 0, 30% 100%, 30% 100%, 30% 0);
+        &.image_appear { clip-path: polygon(40% 0, 100% 0, 100% 100%, 40% 100%, 40% 0, 30% 0, 30% 100%, 0 100%, 0 0); }
+    }
+
+    @include parallax(.2);
+}
+
+.fool_image {
+    top: 25%;
+    left: 40%;
+
+    >img {
+        clip-path: polygon(0 1%, 100% 1%, 100% 0, 0 0);
+        &.image_appear { clip-path: polygon(0 85%, 100% 100%, 100% 15%, 0 0); }
+    }
+}
+
+.train_image {
+    bottom: 35%;
+    right: 10%;
+
+    >img {
+        clip-path: polygon(0 0, 100% 0, 100% 1%, 0 1%);
+        &.image_appear { clip-path: polygon(0 20%, 100% 0%, 100% 80%, 0% 100%); }
+    }
+
+    @include parallax(.1, 11);
+}
+
+.charm_image {
+    bottom: 45%;
+    left: 20%;
+
+    >img {
+        clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%, 50% 50%);
+        &.image_appear { clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);}
+    }
+    
+    @include parallax(.2, 7);
 }

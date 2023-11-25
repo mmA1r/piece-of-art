@@ -6,13 +6,11 @@ const CloudImage = forwardRef((
     {
         cacheImageSrc, 
         index, 
-        name, 
-        alt  
+        name
     }: { 
         cacheImageSrc: (image: HTMLImageElement, index: number) => void; 
         index: number; 
         name: string; 
-        alt: string 
     },
     ref
 ) => {
@@ -30,7 +28,7 @@ const CloudImage = forwardRef((
         if (image) {
             image.addEventListener("load", onSuccesLoad); // вешаем листенер не через атрибут, чтобы можно было потом его удалить
         }
-    });
+    }, []);
 
     const extension = name === 'back-cloud' ? 'jpg' : 'png';
     const style = { backgroundImage: `url(/assets/intro/low-res/${name}_low-res.${extension})` };
@@ -86,7 +84,6 @@ const CloudImage = forwardRef((
                     src={`/assets/intro/png/${name}.${extension}`}
                     style={style}
                     ref={imgRef}
-                    alt={alt}
                     loading='lazy'
                     role='presentation'
                 />

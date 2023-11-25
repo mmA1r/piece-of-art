@@ -14,12 +14,14 @@ const ImageSection = ({ nodes }: { nodes: string[] }) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     setImages(
-                        nodes.map((node, index) => 
-                            <WaterfallImage
-                                name={node}
-                                key={index}
-                            />
-                        )
+                        nodes.map((node, index) => {
+                            return (
+                                <WaterfallImage
+                                    key={index}
+                                    name={node}
+                                />
+                            );
+                        })
                     );
 
                     observer.disconnect();
@@ -46,8 +48,8 @@ const ImagesWrapper = () => {
 
     const imagesStack = [
         [ 'purple','thoughts','scarecrow','azula','float','heart' ],
-        [ 'samurai','lake','dragon','humility','koto','morning' ],
-        [ 'violet', 'memories', 'cozy', 'fool', 'train', 'charm' ]
+        [ 'samurai','dragon','humility','koto','morning' ],
+        [ 'violet', 'memories', 'fool', 'train', 'charm' ]
     ];
 
     return (
