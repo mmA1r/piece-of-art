@@ -1,6 +1,22 @@
 .footer {
     width: 100%;
-    background-color: var(--additional-color_light);
+    background-color: var(--main-color_light);
 
     clip-path: polygon(0 calc(10% + 5vw), 100% 0, 100% 100%, 0% 100%);
+
+    overflow: hidden;
+}
+
+.socials__wrapper {
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--additional-color_light);
+    clip-path: circle(1% at 50% 50%);
+
+    transition: clip-path var(--slow-transition);
+
+    &.socials_in-view {
+        clip-path: circle(100% at 50% 50%);
+    }
 }
