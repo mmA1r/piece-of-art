@@ -19,6 +19,8 @@
     --additional-color_dark: #EF4C19;
     --fallback-color_dark: #0E0E12;
 
+    --backdrop-galss-color: #ffffff95;
+
     --transition: .7s ease-in-out;
     --slow-transition: 1.4s ease-in-out;
 }
@@ -61,6 +63,8 @@ img {
 
 button {
     cursor: pointer;
+    
+    background-color: transparent;
 
     &:focus { outline: none; }
     &:focus-visible {
@@ -72,9 +76,6 @@ button {
     :root {
         color: var(--additional-color_light);
         background-color: var(--main-color_light);
-    }
-    button {
-        background-color: #f9f9f9;
     }
 }
 

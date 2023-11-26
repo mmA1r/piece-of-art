@@ -18,7 +18,7 @@
 
 // hover only where hover exist make sence
 @mixin desktop_hover {
-    @media (hover: hover) and (pointer: fine) {
+    @media screen and (min-width: 769px) and (hover: hover) and (pointer: fine) {
         &:hover {
             @content;
         }

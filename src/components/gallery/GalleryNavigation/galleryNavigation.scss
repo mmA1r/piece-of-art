@@ -1,0 +1,32 @@
+@use '/src/scss/index.scss' as *;
+
+.gallrey-navigation {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    
+    padding: 7px;
+
+    background-color: transparent;
+
+    @include phone_width {
+        width: 80vw;
+        height: fit-content;
+        max-height: 50vh;
+
+        flex-direction: column;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    @include desktop_width {
+        max-width: 40vw;
+        width: fit-content;
+        height: 50vh;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+}

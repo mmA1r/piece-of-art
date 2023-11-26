@@ -14,19 +14,6 @@
 .waterfall__image-container {
     display: block;
     position: absolute;
-
-    @include desktop_width {
-        &:nth-child(odd) {
-            >.image_appear {
-                animation: image-sliding 25s linear infinite;
-            }
-        }
-        &:nth-child(even) {
-            >.image_appear {
-                animation: image-sliding 25s linear infinite alternate;
-            }
-        }
-    }
 }
 
 .waterfall__image {
@@ -43,7 +30,6 @@
     will-change: transform;
 
     transition: clip-path var(--slow-transition);
-    image-rendering: pixelated;
 }
 
 //////////////////////////////////
