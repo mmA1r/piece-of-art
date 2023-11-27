@@ -81,6 +81,8 @@
         background-color: var(--backdrop-galss-color);
 
         transition: var(--transition);
+
+        will-change: backdrop-filter width;
     }
 }
 
@@ -94,8 +96,10 @@
     @include phone_width {
         position: absolute;
         top: 0;
+
         height: 100%;
         min-width: 50%;
+
         clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
 
         &:nth-child(1) { left: -12%; }
@@ -106,8 +110,10 @@
     @include desktop_width {
         position: absolute;
         left: 0;
+
         min-height: 50%;
         width: 100%;
+
         clip-path: polygon(0 25%, 100% 0%, 100% 75%, 0% 100%);
 
         &:nth-child(1) { top: -12%; }

@@ -30,3 +30,98 @@
         overflow-y: hidden;
     }
 }
+
+.show-all-button {
+    $size: 50px;
+
+    width: $size;
+    height: $size;
+
+    position: fixed;
+
+    color: var(--main-color_light);
+    border: 2px solid;
+
+    @include phone_width {
+        top: 10px;
+        left: 10px;
+    }
+
+    @include desktop_width {
+        top: 20px;
+        left: 20px;
+    }
+}
+
+.gallery-navigation__gallery-icon-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    color: var(--main-color_light);
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: var(--transition);
+
+    @include desktop-hover {
+        background-color: var(--main-color_light);
+        color: var(--additional-color_light);
+    }
+}
+
+.gallery-navigation__gallery-icon {
+    width: 65%;
+    height: 65%;
+
+    >path { fill: currentColor; }
+}
+
+.gallery-navigation__spot-icon {
+    position: absolute;
+    left: -25px;
+    top: -25px;
+
+    z-index: 0;
+
+    cursor: default;
+
+    >path { fill: var(--additional-color_light); }
+
+    @include phone_width {
+        width: 160px;
+        height: 110px;
+    }
+
+    @include desktop_width {
+        width: 220px;
+        height: 120px;
+    }
+}
+
+.show-all-button__tilte {
+    position: absolute;
+    top: 0;
+    left: 125%;
+    z-index: 1;
+
+    pointer-events: none;
+
+    color: var(--main-color_light);
+
+    transition: var(--transition);
+
+    @include phone-width {
+        font-size: 18px;
+    }
+
+    @include desktop-width {
+        font-size: 20px;
+    }
+
+    @extend %text;
+}
