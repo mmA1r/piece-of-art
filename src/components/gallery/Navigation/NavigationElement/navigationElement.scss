@@ -3,10 +3,22 @@
 .navigation__element {
     position: relative;
 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     color: var(--additional-color_light);
 
     border: 1px solid;
     border-radius: 7px;
+
+    &.all-element {
+        background-color: var(--additional-color_light);
+
+        >.navigation__year { color: var(--main-color_light); }
+
+        >.navigation__background-wrapper { display: none; }
+    }
 
     @include phone_width {
         width: 100%;
@@ -14,6 +26,12 @@
         height: 35px;
 
         margin: 10px 0;
+
+        &.all-element {
+            >.navigation__year { 
+                text-transform: lowercase;
+            }
+        }
     }
 
     @include desktop_width {
@@ -34,6 +52,10 @@
         }
         &::after { left: -9px; }
         &::before { right: -9px; }
+
+        .mini-navigation-mode & {
+            transition: var(--transition);
+        }
     }
 
     @include desktop-hover {
@@ -42,6 +64,10 @@
         >.navigation__background-wrapper:after {
             backdrop-filter: none;
             background-color: transparent;
+        }
+
+        .mini-navigation-mode & {
+            color: var(--main-color_light);
         }
     }
 }
@@ -53,6 +79,11 @@
     user-select: none;
 
     @extend %year-navigation_font;
+
+    @include desktop_width {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+    }
 }
 
 .navigation__background-wrapper {

@@ -1,4 +1,4 @@
-import './backButton.scss';
+import './header.scss';
 
 const WaterSvg = () => <svg className='back-button__water-svg' viewBox="0 0 32 32" fill="none">
     <path d="M.35 16.27c2.95 5.76 10.24 4 17.96-.29 7.73-4.29 13-4.38 13.69.24-3.97-6.3-13.37 3.81-20.55 5.12-4.68.85-11.37.14-11.1-5.07Z"/>
@@ -8,22 +8,18 @@ const WaterSvg = () => <svg className='back-button__water-svg' viewBox="0 0 32 3
     <path d="M2.86346 23.6716C9.48787 27.4503 16.9183 23.2916 20.7271 19.7083C17.3475 24.5946 5.97485 31.2726 2.86346 23.6716Z"/>
 </svg>;
 
-const SpotSvg = () => <svg className='back-button__spot-svg' viewBox="0 0 160 125" fill="none" preserveAspectRatio='none'>
-    <path d="M26.77 109.9c8.76 3.65 16.01 9 22.23 15.1l112-.19V5A140.26 140.26 0 0 0 138.27.9c-75-7.16-50.78 30.29-86.74 40.5-59.26 16.84-67.26 50.84-24.76 68.5Z"/>
-</svg>
-
-
-const BackButton = () => {
+const Header = () => {
     return(
-        <a 
-            className={'gallery__back-button'}
-            href='/main'
-        >
-            <SpotSvg />
-            <WaterSvg />
-            <span className='back-button__title'>intro</span>
-        </a>
+        <header className='gallery__header'>
+            <a 
+                className={'gallery__back-button'}
+                href='/main'
+            >
+                <WaterSvg />
+                <span className='back-button__title'>intro</span>
+            </a>
+        </header>
     );
 }
 
-export default BackButton;
+export default Header;

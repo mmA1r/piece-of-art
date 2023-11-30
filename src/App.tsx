@@ -6,8 +6,8 @@ import Fallback from './components/Fallback/Fallback';
 const Intro = lazy(() => import('./components/main/Intro/Intro'));
 const Waterfall = lazy(() => import('./components/main/Waterfall/Waterfall'));
 const Footer = lazy(() =>  import('./components/main/Footer/Footer'));
-const BackButton = lazy(() => import('./components/gallery/BackButton/BackButton'));
-const GalleryNavigation = lazy(() => import('./components/gallery/GalleryNavigation/GalleryNavigation'));
+const Header = lazy(() => import('./components/gallery/Header/Header'));
+const GalleryNavigation = lazy(() => import('./components/gallery/Navigation/Navigation'));
 
 import './app.scss'
 
@@ -21,7 +21,7 @@ const Main = () => <div className={"main"}>
 
 const Gallery = () => <div className={"gallery"}>
     <Suspense fallback={<Fallback />}>
-        <BackButton />
+        <Header />
         <GalleryNavigation />
     </Suspense>
 </div>

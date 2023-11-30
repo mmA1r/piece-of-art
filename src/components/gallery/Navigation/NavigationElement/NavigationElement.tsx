@@ -23,13 +23,16 @@ const BackgroundImage = ({ src, index }: { src: string, index: number }) => {
 }
 
 const NavigationElement = ({ year, images }: { year: string, images: string[] }) => {
+    let adiitionalName: string = '';
 
     const background = images.map((image, index) => 
         <BackgroundImage src={image} key={index} index={index} />
     );
 
+    if (!images.length) { adiitionalName = 'all-element'; }
+
     return(
-        <button className={'navigation__element'}>
+        <button className={`navigation__element ${adiitionalName}`}>
             <span className='navigation__year'>{ year }</span>
             <div className='navigation__background-wrapper'>
                 { background }

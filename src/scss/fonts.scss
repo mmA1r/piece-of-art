@@ -50,9 +50,4 @@
     text-transform: uppercase;
 
     color: currentColor;
-
-    @media screen and (min-width: 769px) {
-        writing-mode: vertical-rl;
-        text-orientation: upright;
-    }
 }
