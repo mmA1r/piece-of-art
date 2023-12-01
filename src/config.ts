@@ -7,7 +7,6 @@ export interface IConfig {
 }
 
 export enum Events {
-    CHANGE_NAVBAR_STATE = 'CHANGE_NAVBAR_STATE',
     SET_YEAR = 'SET_YEAR'
 }
 

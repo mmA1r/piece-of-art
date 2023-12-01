@@ -27,8 +27,11 @@
         height: 50vh;
         max-height: 600px;
 
-        overflow-x: auto;
-        overflow-y: hidden;
+        &.mini-navigation-mode {
+            overflow-x: auto;
+        }
+
+        overflow: hidden;
     }
 }
 
@@ -55,10 +58,15 @@
 }
 
 .mini-navigation-mode {
+    padding: 4px 18px !important;
+
+    >.navigation__element {
+        overflow: hidden;
+    }
+    
     @include phone_width {
         position: fixed;
         bottom: 0;
-        left: 0;
 
         height: 100px;
         width: fit-content;
@@ -70,10 +78,6 @@
 
         left: 50%;
         transform: translateX(-50%);
-
-        >.hidden-element {
-            display: none;
-        }
 
         >.navigation__element {
             height: 100%;
@@ -113,11 +117,6 @@
 
         left: 50%;
         transform: translateX(-50%);
-        padding: 4px;
-
-        >.hidden-element {
-            display: none;
-        }
 
         >.navigation__element {
             height: 20px;
