@@ -2,6 +2,7 @@ import { useRef, useEffect, useContext } from 'react';
 import { Modules } from '../../../main';
 
 import './header.scss';
+import { Link } from 'react-router-dom';
 
 const WaterSvg = () => <svg className='back-button__water-svg' viewBox="0 0 32 32" fill="none">
     <path d="M.35 16.27c2.95 5.76 10.24 4 17.96-.29 7.73-4.29 13-4.38 13.69.24-3.97-6.3-13.37 3.81-20.55 5.12-4.68.85-11.37.14-11.1-5.07Z"/>
@@ -12,59 +13,31 @@ const WaterSvg = () => <svg className='back-button__water-svg' viewBox="0 0 32 3
 </svg>;
 
 const Header = () => {
-    const headerRef = useRef<HTMLElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
     const closeButtonRef = useRef<HTMLButtonElement>(null);
     const mediator = useContext(Modules).mediator;
 
     const selectEvent = mediator.getEventNames().SET_YEAR;
-
-    useEffect(() => {
-        mediator.subscribe(selectEvent, changeHeaderState);
-
-        return () => {
-            mediator.unsubscribe(selectEvent, changeHeaderState);
-        }
-    });
-
-    const changeHeaderState = (year: string) => {
-        const header = headerRef.current;
-        const button = closeButtonRef.current;
-
-        if (year && header && button) {
-            header.classList.add('header_show');
-            button.classList.remove('close-button_hidden');
-        }
-
-        if (!year && header && header.classList.contains('header_show') && button) {
-            header.classList.remove('header_show');
-            button.classList.add('close-button_hidden');
-        }
-    }
 
     const setStateToDefault = () => {
         mediator.call(selectEvent, '');
     }
 
     return(
-        <header 
+        <div 
             className='gallery__header'
             ref={headerRef}
         >
-            <a 
-                className={'gallery__back-button'}
-                href='/main'
-            >
-                <WaterSvg />
+            <div className={'gallery__back-button-wrapper'}>
+                <Link 
+                    to={'/main'}
+                    className='gallery__back-button'
+                >
+                    <WaterSvg />
+                </Link>
                 <span className='back-button__title'>intro</span>
-            </a>
-            <button ref={closeButtonRef} className='header__close-button close-button_hidden' onClick={setStateToDefault}>
-                <svg viewBox="0 0 70 70" fill="none" preserveAspectRatio='none'>
-                    <path className='close-button__background' fill="#2D8DFF" stroke="#fff" strokeWidth="2" d="M69 26.1c0 10.49-7.45 18.29-17.18 24.7C47 54 41.66 56.82 36.55 59.4l-2.89 1.46c-4.04 2.03-7.85 3.95-11.01 5.83-3.68 2.2-7.25 2.76-10.35 1.98-3.1-.78-5.86-2.93-7.9-6.41-4.07-7-5.11-19.33.4-35.84 2.76-8.29 5.37-14.17 7.94-18.18 2.57-4 5.03-6.05 7.46-6.84 2.41-.78 4.99-.4 7.95.9 2.97 1.3 6.2 3.47 9.88 6.08 6.55 4.63 13.26 4.9 18.6 5.1 1.2.06 2.34.1 3.38.2 2.91.25 5.05.83 6.52 2.44C68 17.76 69 20.67 69 26.11Z"/>
-                    <path className='close-button__cross-component' d="M24 26.86L25.8 25.03L42.6 42.16L40.8 44L24 26.87Z" fill="white"/>
-                    <path className='close-button__cross-component' d="M41.2 25L43 26.83L26.19 43.96L24.39 42.13L41.2 25Z" fill="white"/>
-                </svg>
-            </button>
-        </header>
+            </div>
+        </div>
     );
 }
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './galleryBlock.scss';
 
 const PictruteIcon = () => <div className={"intro-gallery_icon-wrapper"}>
@@ -7,7 +8,10 @@ const PictruteIcon = () => <div className={"intro-gallery_icon-wrapper"}>
 </div>
 
 const GalleryRoute = () => <div className={"gallery_route-link-wrapper"}>
-    <a href={"/gallery"} className={"gallery_route-link"}>
+    <Link
+        to={'/gallery'}
+        className={'gallery_route-link'}
+    >
         <svg viewBox="0 0 30 30" >
             <path d="M13.47 12.63c-7.12 4.78.12 13.42 10.24 8.95-11.66 3.4-12.95-7.13-10.24-8.95Z"/>
             <path d="M16.12 20.9c11.23-1.56 10.7-9.96 10.7-13.6 5.05 4.77 1.93 17.04-10.7 13.6Z"/>
@@ -17,17 +21,17 @@ const GalleryRoute = () => <div className={"gallery_route-link-wrapper"}>
             <path d="M4.62 15.13c-2.38 11.8 7.27 13.58 12.44 12.7-6.68 2.8-17.4-.29-12.44-12.7Z"/>
             <path d="M8.7 28.73c7.27 1.87 15.6-2.87 19.48-5.65 0 0-5.47 10.48-19.49 5.65ZM27.25 5.27c2.82 3.63 3.3 5.57 2.22 10.3.23-4.87-.1-6.3-2.22-10.3ZM.08 18.27c-.26 2.69 0 3.62 2.47 5.59a10.6 10.6 0 0 1-2.47-5.59Z"/>
         </svg>
-    </a>
+    </Link>
 </div>
 
 const GalleryBlock = () => {
 
     return (
-        <div className={"intro__gallery"}>
+        <section className={"intro__gallery"}>
             <h2>gallery</h2>
             <PictruteIcon />
             <GalleryRoute />
-        </div>
+        </section>
     );
 }
 

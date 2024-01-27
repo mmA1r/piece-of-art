@@ -36,6 +36,10 @@
         height: 2px;
         background-color: var(--main-color_light);
     }
+    
+    >li {
+        position: relative;
+    }
 }
 
 .footer__link {
@@ -83,20 +87,20 @@
         &::after { clip-path: circle(100% at center);}
     }
 
-
     >svg {
         position: absolute;
         height: 60%;
         fill: none;
-        >path { fill: currentColor; }
     }
+}
 
-    &:nth-child(3) {
-        >svg {
-            >path {
-                fill: none;
-                stroke: currentColor;
-            }
-        }
+.footer__stroke-svg {
+    >path {
+        fill: none;
+        stroke: currentColor;
     }
+}
+
+.footer__fill-svg {
+    >path { fill: currentColor; }
 }

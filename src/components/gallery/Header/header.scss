@@ -2,73 +2,51 @@
 
 .gallery__header {
     position: fixed;
-    top: 0;
     left: 0;
-    height: 50px;
+    height: 72px;
     width: 100%;
 
-    border-bottom: 1px solid transparent;
+    background-color: #ffffff73;
 
-    transition: var(--transition);
+    z-index: 1;
 
-    &::after {
-        content: '';
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
+    @include desktop_width {
         top: 0;
-        left: 0;
-
-        background-image: url('/assets/gallery/header3.png');
-        background-position: center;
-        background-size: contain;
-        background-repeat: repeat-x;
-
-        z-index: 0;
-
-        opacity: 0;
-
-        transition: var(--transition);
-
-        @media screen and (max-width: 1512px) {
-            background-size: cover;
-            background-repeat: no-repeat;
-        }
+        border-bottom: 1px solid currentColor;
+        backdrop-filter: blur(2px);
     }
 
-    &.header_show {
-        border-color: var(--additional-color_light);
+    @include phone_width {
+        bottom: 0;
+        border-top: 1px solid currentColor;
+    }
+}
 
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
+.gallery__back-button-wrapper {
+    position: relative;
 
-        &::after { opacity: 1; }
+    display: flex;
+    align-items: center;
 
-        >.gallery__back-button {
-            margin: 7.5px 18px;
-        }
+    height: 100%;
+    width: auto;
+
+    padding: 12px;
+
+    @include phone_width {
+        flex-flow: row-reverse;
     }
 }
 
 .gallery__back-button {
-    $size: 35px;
+    $size: 40px;
 
     width: $size;
     height: $size;
 
-    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    top: 0;
-    left: 0;
-    z-index: 1;
-
-    margin: 18px 18px;
-
-    transition: var(--transition);
 
     color: var(--additional-color_light);
 }
@@ -76,7 +54,6 @@
 .back-button__water-svg {
     width: 100%;
     height: 100%;
-    z-index: 2;
 
     color: currentColor;
     
@@ -96,65 +73,11 @@
 }
 
 .back-button__title {
-    position: absolute;
-
     color: currentColor;
+    font-size: 18px;
+
+    margin: 0 8px;
 
     cursor: default;
-
-    @include phone-width {
-        font-size: 18px;
-        left: 120%;
-    }
-
-    @include desktop-width {
-        font-size: 20px;
-        left: 140%;
-    }
-
     @extend %text;
-}
-
-.header__close-button {
-    $size: 35px;
-    $transition: var(--transition);
-
-    width: $size;
-    height: $size;
-
-    position: absolute;
-    top: 7.5px;
-    right: 18px;
-    z-index: 1;
-    opacity: 1;
-
-    transition: $transition;
-
-    &.close-button_hidden {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    & .close-button__background {
-        transition: $transition;
-        fill: var(--additional-color_light);
-        stroke: transparent;
-        stroke-width: 2;
-    }
-
-    & .close-button__cross-component {
-        transition: $transition;
-        fill: var(--main-color_light);
-    }
-
-    @include desktop_hover {
-        & .close-button__background {
-            fill: var(--main-color_light);
-            stroke: var(--additional-color_light);
-        }
-    
-        & .close-button__cross-component {
-            fill: var(--additional-color_light);
-        }
-    }
 }

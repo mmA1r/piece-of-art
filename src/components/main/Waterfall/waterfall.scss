@@ -17,7 +17,7 @@
 }
 
 .sentence-wrapper, .phrase-wrapper {
-    >h2 {
+    >h2, p {
         $transition: var(--slow-transition);
         $font-size_desktop: 28px;
         $font-size_phone: 24px;
@@ -96,5 +96,5 @@
 
 .text_appear {
     &::after, &::before { height: 18px; }
-    >h2::after { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); }
+    >h2, p::after { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); }
 }

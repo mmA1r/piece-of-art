@@ -7,7 +7,8 @@ export interface IConfig {
 }
 
 export enum Events {
-    SET_YEAR = 'SET_YEAR'
+    SET_YEAR = 'SET_YEAR',
+    CONTENT_LOADED = 'CONTENT_LOADED'
 }
 
 export enum Triggers  {

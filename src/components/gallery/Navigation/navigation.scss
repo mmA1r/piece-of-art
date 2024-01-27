@@ -2,13 +2,30 @@
 
 .gallrey-navigation {
     position: relative;
-
-    display: flex;
-    align-items: center;
     
-    padding: 7px;
+    z-index: 2;
 
     background-color: transparent;
+
+    height: fit-content;
+
+    @include desktop_width {
+        mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
+        -webkit-mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
+    }
+
+    @include phone_width {
+
+    }
+}
+
+.navigation__list {
+    display: flex;
+    align-items: center;
+
+    padding: 8px;
+
+    transition: var(--transition);
 
     @include phone_width {
         width: 80vw;
@@ -23,13 +40,11 @@
 
     @include desktop_width {
         max-width: 40vw;
-        width: fit-content;
+        width: 600px;
         height: 50vh;
         max-height: 600px;
 
-        &.mini-navigation-mode {
-            overflow-x: auto;
-        }
+        justify-content: center;
 
         overflow: hidden;
     }
@@ -54,89 +69,5 @@
     @include desktop_width {
         top: 20px;
         left: 20px;
-    }
-}
-
-.mini-navigation-mode {
-    padding: 4px 18px !important;
-
-    >.navigation__element {
-        overflow: hidden;
-    }
-    
-    @include phone_width {
-        position: fixed;
-        bottom: 0;
-
-        height: 100px;
-        width: fit-content;
-        max-width: 100vw;
-
-        flex-direction: row;
-
-        overflow-x: auto;
-
-        left: 50%;
-        transform: translateX(-50%);
-
-        >.navigation__element {
-            height: 100%;
-            width: 30px;
-            margin: 0 6px;
-
-            background-color: var(--additional-color_light);
-
-            >.navigation__year {
-                writing-mode: vertical-rl;
-                text-orientation: upright;
-    
-                font-size: 14px;
-                text-transform: uppercase !important;
-            }
-
-            >.navigation__year { 
-                color: var(--main-color_light);
-            }
-
-            >.navigation__background-wrapper {
-                display: none;
-            }
-        }
-    }
-
-    @include desktop_width {
-        position: fixed;
-        top: 0;
-        left: 0;
-
-        height: 50px;
-        width: fit-content;
-        max-width: 80vw;
-
-        overflow-x: auto;
-
-        left: 50%;
-        transform: translateX(-50%);
-
-        >.navigation__element {
-            height: 20px;
-            width: 50px;
-            margin: 0 6px;
-
-            background-color: var(--additional-color_light);
-
-            >.navigation__year {
-                writing-mode: inherit;
-                font-size: 12px;
-            }
-
-            >.navigation__year { 
-                color: var(--main-color_light);
-            }
-
-            >.navigation__background-wrapper {
-                display: none;
-            }
-        }
     }
 }

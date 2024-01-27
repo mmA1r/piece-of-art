@@ -1,58 +1,58 @@
-import { useEffect, useRef, useContext } from 'react';
+import { useRef, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import NavigationElement from './NavigationElement/NavigationElement';
-import { Modules } from '../../../main';
 
 import './navigation.scss';
 
-const mockedData: {[key: string]: string[]} = {
-    "all": [],
-    "2019": ['azula', 'fool', 'scarecrow'],
-    "2020": ['koto', 'heart', 'morning'],
-    "2021": ['memories', 'purple', 'violet'],
-    "2022": ['war', 'samurai', 'thoughts'],
-    "2023": ['dragon', 'float', 'train'],
-}
+const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
+    const navRef = useRef<HTMLUListElement>(null);
+    const location = useLocation().pathname.split('/');
 
-const Navigation = () => {
-    const navRef = useRef<HTMLDivElement>(null);
-    const mediator = useContext(Modules).mediator;
-
-    const selectEvent = mediator.getEventNames().SET_YEAR;
-
-    useEffect(()=> {
-        mediator.subscribe(selectEvent, changeNavbarState)
-        return () => {
-            mediator.unsubscribe(selectEvent, changeNavbarState);
-        }
+    useEffect(() => {
+        
     });
 
-    const changeNavbarState = (year: string) => {
-        const nav = navRef.current;
-        if (year && nav) {
-            if (!nav.classList.contains('mini-navigation-mode')) {
-                nav.classList.add('mini-navigation-mode');
-            }
-        }
+    var content: JSX.Element = <></>;
 
-        if(!year && nav && nav.classList.contains('mini-navigation-mode')) {
-            nav.classList.remove('mini-navigation-mode');
-        }
+    if (location.length > 2 && location[2].length > 0) { // case url consist sub-path after /gallery/...
+        //className = 'gallrey-navigation mini-navigation-mode';
+        //content = Object.keys(data)
+        //    .reverse()
+        //    .filter(year => data[location[2]] !== data[year])
+        //    .map((year, index) =>
+            
+        //        <NavigationElement
+        //            key={index}
+        //            year={year}
+        //            images={data[year]}
+        //        />
+        //    )
+        //;
+    } else {
+        content = (
+            <nav className={'gallrey-navigation'}>
+                <ul 
+                    onWheel={() => console.log(2)}
+                    className='navigation__list'
+                    ref={navRef}
+                >
+                    {
+                        Object.keys(data)
+                            .reverse()
+                            .map((year, index) =>
+                                <NavigationElement 
+                                    key={index}
+                                    year={year}
+                                    images={data[year]}
+                                />
+                        )
+                    }
+                </ul>
+            </nav>
+        )
     }
 
-    const navElements = Object.keys(mockedData)
-        .reverse()
-        .map((year, index) => 
-            <NavigationElement key={index} year={year} images={mockedData[year]} />
-        );
-    
-    return(
-        <div
-            className={'gallrey-navigation'}
-            ref={navRef}
-        >
-            { navElements }
-        </div>
-    );
+    return content;
 }
 
 export default Navigation;

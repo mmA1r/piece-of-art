@@ -4,10 +4,10 @@ import './socials.scss';
 
 const Socials = () => {
     return (
-        <section className={"footer_socials"}>
+        <div className={"footer_socials"}>
             <h2>SOCIALS</h2>
             <Links />
-        </section>
+        </div>
     );
 }
 

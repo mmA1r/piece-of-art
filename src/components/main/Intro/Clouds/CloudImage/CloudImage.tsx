@@ -37,6 +37,7 @@ const CloudImage = forwardRef((
         const image = imgRef.current;
         if (image) {
             const source = image.currentSrc;                 // берем src у оптимально подгруженной картинки, не важно jpg avif или webp
+            setSupportedExtention(source.split('.')[1])      // закинуть поддерживаемый тип в storage, чтобы в дальнейшем запрашивать его с сервака
             image.src = source;                              // обновить src у img, чтобы при удлаении <source> он не попытался подгрузить картинку из src
             const newImage = createImage(source);            // создать img для дальшейшего кэширования
             clearBackgroundStyle(image);                     // удалить style чтобы не отсвечивал
@@ -64,6 +65,13 @@ const CloudImage = forwardRef((
         imgObj.src = src;
         imgObj.style.backgroundImage = style.backgroundImage;
         return imgObj;
+    }
+
+    const setSupportedExtention = (ext: string) => {
+        const extentions = ['webp', 'avif', 'jpg', 'png'];
+        if (!localStorage.getItem('ext') && extentions.includes(ext)) {
+            localStorage.setItem('ext', ext);
+        }
     }
 
     return (

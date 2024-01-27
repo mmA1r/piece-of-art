@@ -31,9 +31,17 @@ const TextWrapper = ({ classNameName, content }: { classNameName: string; conten
         }
     }, []);
 
+    var textContent = <></>;
+
+    if (classNameName === 'phrase-wrapper') {
+        textContent = <h2>{ content }</h2>;
+    } else {
+        textContent = <p>{ content }</p>;
+    }
+
     return (
         <div ref={textRef} className={classNameName}>
-            <h2>{ content }</h2>
+            { textContent }
         </div>
     );
 }

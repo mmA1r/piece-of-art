@@ -3,6 +3,40 @@
 .navigation__element {
     position: relative;
 
+    transition: var(--transition);
+
+    @include phone_width {
+        width: 100%;
+        max-width: 460px;
+        height: 35px;
+
+        margin: 8px 0;
+    }
+
+    @include desktop_width {
+        width: 40px;
+        height: 100%;
+
+        margin: 0 8px;
+    }
+
+    @include desktop-hover {
+        width: 120px;
+
+        >.navigation__link {
+            width: 100%;
+        }
+
+        & .navigation__background-wrapper:after {
+            backdrop-filter: none;
+            background-color: transparent;
+        }
+    }
+}
+
+.navigation__link {
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +44,7 @@
     color: var(--additional-color_light);
 
     border: 1px solid;
-    border-radius: 7px;
+    border-radius: 8px;
 
     transition: var(--transition);
 
@@ -22,26 +56,10 @@
         >.navigation__background-wrapper { display: none; }
     }
 
-    &.hidden-element {
-        width: 0 !important;
-        height: 0 !important;
-        opacity: 0;
-        visibility: hidden;
-        margin: 0 !important;
-        border: 0 !important;
-        >.navigation__year {
-            overflow: hidden;
-            width: 0;
-            height: 0;
-        }
-    }
-
     @include phone_width {
         width: 100%;
         max-width: 460px;
         height: 35px;
-
-        margin: 10px 0;
 
         &.all-element {
             >.navigation__year { 
@@ -53,8 +71,6 @@
     @include desktop_width {
         width: 40px;
         height: 100%;
-
-        margin: 0 8px;
 
         &::after, &::before {
             content: '';
@@ -68,18 +84,14 @@
         &::before { right: -9px; }
     }
 
-    @include desktop-hover {
-        width: 120px;
+    //@include desktop-hover {
+    //    width: 120px;
 
-        >.navigation__background-wrapper:after {
-            backdrop-filter: none;
-            background-color: transparent;
-        }
-
-        .mini-navigation-mode & {
-            color: var(--main-color_light);
-        }
-    }
+    //    >.navigation__background-wrapper:after {
+    //        backdrop-filter: none;
+    //        background-color: transparent;
+    //    }
+    //}
 }
 
 .navigation__year {
