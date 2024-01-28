@@ -96,5 +96,5 @@
 
 .text_appear {
     &::after, &::before { height: 18px; }
-    >h2, p::after { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); }
+    >h2::after, p::after { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%); }
 }

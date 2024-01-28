@@ -10,22 +10,33 @@
     height: fit-content;
 
     @include desktop_width {
-        mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
-        -webkit-mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
+        width: 400px;
     }
 
     @include phone_width {
+        -webkit-maks: linear-gradient(transparent, white 5%, white 95%, transparent);
+        mask: linear-gradient(transparent, white 5%, white 95%, transparent);
+    }
+}
 
+.gallrey-navigation_wide {
+    @include desktop_width {
+        width: 500px;
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
     }
 }
 
 .navigation__list {
     display: flex;
     align-items: center;
+    margin: auto;
 
-    padding: 8px;
+    padding: 8px 0;
 
     transition: var(--transition);
+    will-change: transform;
 
     @include phone_width {
         width: 80vw;
@@ -39,14 +50,31 @@
     }
 
     @include desktop_width {
-        max-width: 40vw;
-        width: 600px;
+        width: max-content;
         height: 50vh;
         max-height: 600px;
 
         justify-content: center;
-
         overflow: hidden;
+
+        &.hovered {
+            transform: translateX(-36px);
+        }
+    }
+}
+
+.navigation__list_wide {
+    @include desktop_width {
+        min-width: max-content;
+        height: 50vh;
+        max-height: 600px;
+
+        justify-content: center;
+        overflow: hidden;
+
+        &.hovered {
+            transform: translateX(-40px);
+        }
     }
 }
 
@@ -69,5 +97,17 @@
     @include desktop_width {
         top: 20px;
         left: 20px;
+    }
+}
+
+.gallery__carousel-button {
+    width: 100px;
+    height: 30px;
+    border: 1px solid black;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    &:nth-child(2) {
+        left: 100px;
     }
 }

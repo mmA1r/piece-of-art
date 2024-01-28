@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import './navigationElement.scss';
 
-const BackgroundImage = ({ src, index }: { src: string, index: number }) => {
+const BackgroundImage = ({ src, index, additionalClass }: { src: string, index: number, additionalClass:string }) => {
     const ref = useRef<HTMLImageElement>(null);
 
     const onError = () => {
@@ -14,11 +14,12 @@ const BackgroundImage = ({ src, index }: { src: string, index: number }) => {
 
     return (
         <img
-            className={`navigation__background-image background-image__element_${index}`}
+            className={`navigation__background-image background-image__element_${index} ${additionalClass}`}
             src={`/assets/waterfall/jpg/${src}.jpg`}
             ref={ref}
             onError={onError}
             loading='lazy'
+            alt='link background'
         />
     );
 }
@@ -26,13 +27,20 @@ const BackgroundImage = ({ src, index }: { src: string, index: number }) => {
 const NavigationElement = ({ year, images }: { year: string, images: string[] }) => {
     var adiitionalName: string = '';
 
-    const background = images.map((image, index) => 
-        <BackgroundImage 
+    const background = images.map((image, index) => {
+        var addClass = '';
+        if(images.length < 2) {
+            addClass = 'navigation__background-image_standalone';
+        } else if (images.length < 3) {
+            addClass = 'navigation__background-image_pair';
+        }
+        return <BackgroundImage 
             src={image} 
             key={index} 
             index={index}
+            additionalClass={addClass}
         />
-    );
+    });
 
     if (!images.length) { adiitionalName = 'all-element'; }
 
