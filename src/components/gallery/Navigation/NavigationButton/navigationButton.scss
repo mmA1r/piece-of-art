@@ -1,0 +1,31 @@
+@use '/src/scss/index.scss' as *;
+
+.gallery__carousel-button {
+    position: relative;
+    width: 45px;
+    height: 30px;
+    color: currentColor;
+
+    &:nth-child(1) {
+        transform: rotate(180deg);
+    }
+
+    @include desktop-hover {
+        >svg {
+            opacity: .7;
+        }
+    }
+}
+
+.gallery-navigation__button_svg {
+    width: 100%;
+    height: 100%;
+
+    transition: .2s linear;
+
+    >path {
+        transition: var(--transition);
+        fill: currentColor;
+        stroke: transparent;
+    }
+}

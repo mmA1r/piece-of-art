@@ -1,78 +1,84 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import NavigationElement from './NavigationElement/NavigationElement';
 
 import './navigation.scss';
+import NavigationButton from './NavigationButton/NavigationButton';
+import NavigationRange from './NavigationRange/NavigationRange';
 
 const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
     const navRef = useRef<HTMLUListElement>(null);
     const location = useLocation().pathname.split('/'); // make new Component that stick to header
+    const [size, setsize] = useState(window.innerWidth);
+
+    const dataArray = Object.keys(data);
+    const length = dataArray.length;
+    var content: JSX.Element[] = [<></>];
+    var buttons: JSX.Element = <></>;
+    var cardIndicate = <></>;
+    var addClass = '';
+    var isWide = '';
 
     useEffect(() => {
         const nav = navRef.current;
         if (nav) {
             const items = Array.from(nav.children) as HTMLLIElement[];
-            if (Object.keys(data).length <= 7) {
+            if (length <= 7) {
                 items.forEach(item => {
                     item.addEventListener('mouseenter', () => nav.classList.add('hovered'));
                     item.addEventListener('mouseleave', () => nav.classList.remove('hovered'));
                 });
-            } else {
-                const first = nav.firstChild as HTMLLIElement;
-                const last = nav.lastChild as HTMLLIElement;
-                if(first && last) {
-                    first.classList.add('left-edge');
-                    last.classList.add('right-edge');
-                }
             }
+        }
+
+        if (length > 7 && size > 768) {
+            document.addEventListener('wheel', onWheelMove);
+            document.addEventListener('keydown', onKeyDownMove);
+        }
+
+        window.addEventListener('resize', onResize);
+
+        return () => {
+            if (length > 7 && size > 768) {
+                document.removeEventListener('wheel', onWheelMove);
+                document.removeEventListener('keydown', onKeyDownMove);
+            }
+
+            window.removeEventListener('resize', onResize);
         }
     });
 
-    var content: JSX.Element = <></>;
-    var buttons: JSX.Element = <></>;
-    var addClass = '';
-    
-    if (location.length <= 2 || location.length <= 3 && location[2].length <= 0) {
-        if (Object.keys(data).length <= 7) {
-            content = <ul 
-                className='navigation__list'
-                ref={navRef}
-            >
-                {
-                    Object.keys(data)
-                        .reverse()
-                        .map((year, index) =>
-                            <NavigationElement 
-                                key={index}
-                                year={year}
-                                images={data[year]}
-                            />
-                    )
-                }
-            </ul>
+    const onResize = () => {
+        if(size <= 768 && window.innerWidth > 768) {
+            setsize(window.innerWidth);
+        }
+        if(size > 768 && window.innerWidth <= 768) {
+            setsize(window.innerWidth);
+        }
+    };
+
+    const onWheelMove = (e:any) => {
+        if(e.deltaY > 0) {
+            carouselMove(true);
         } else {
-            content = <ul 
-                className='navigation__list navigation__list_wide'
-                ref={navRef}
-            >
-                {
-                    Object.keys(data)
-                        .reverse()
-                        .map((year, index) =>
-                            <NavigationElement 
-                                key={index}
-                                year={year}
-                                images={data[year]}
-                            />
-                    )
-                }
-            </ul>
+            carouselMove(false);
         }
     }
 
-    const moveCarousel = (bool: boolean) => {
+    const onKeyDownMove = (e:any) => {
+        if (e.keyCode === 38 || e.keyCode === 37) {
+            carouselMove(false);
+        }
+        if (e.keyCode === 39 || e.keyCode === 40) {
+            carouselMove(true);
+        }
+    }
+
+    const carouselMove = (bool: boolean) => {
         const nav = navRef.current;
-        if (nav) {
+        const delay = 300;
+        if (nav && !nav.classList.contains('acting') && window.innerWidth > 768) {
+            nav.classList.add('acting');
             if (nav.firstChild && nav.lastChild) {
                 var cloneLast: null | HTMLLIElement;
                 var cloneFirst: null | HTMLLIElement;
@@ -92,12 +98,21 @@ const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
                 }
 
                 const arr = Array.from(nav.children) as HTMLLIElement[];
+
                 arr.forEach(item => {
-                    item.style.transition = '.3s ease-in-out';
+                    item.style.transition = `${delay}ms ease-in-out`;
                     if(bool) {
-                        item.style.transform = 'translateX(calc(100% + 16px))';
+                        if(item.clientWidth > 40) {
+                            item.style.transform = `translateX(56px)`;
+                        } else {
+                            item.style.transform = 'translateX(calc(100% + 16px))';
+                        }
                     } else {
-                        item.style.transform = 'translateX(calc(-100% - 16px))';
+                        if(item.clientWidth > 40) {
+                            item.style.transform = `translateX(-56px)`;
+                        } else {
+                            item.style.transform = 'translateX(calc(-100% - 16px))';
+                        }
                     }
                 });
 
@@ -112,24 +127,52 @@ const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
                         nav.appendChild(nav.firstChild);
                         if (cloneFirst) { cloneFirst.remove(); }
                     }
-                }, 300)
+                    nav.classList.remove('acting');
+                }, delay);
             }
         }
     }
 
-    if (Object.keys(data).length > 7) {
-        buttons = <div>
-            <button onClick={() => moveCarousel(false)} className='gallery__carousel-button'>вперед</button>
-            <button onClick={() => moveCarousel(true)} className='gallery__carousel-button'>назад</button>
-        </div>
-        addClass = 'gallrey-navigation_wide';
+
+    if (location.length <= 2 || location.length <= 3 && location[2].length <= 0) {
+        if (length > 7 && window.innerWidth > 768) {
+            isWide = 'navigation__list_wide'
+            addClass = 'gallrey-navigation_wide';
+
+            buttons = <div className='navigation__button-wrapper'>
+                <NavigationButton onClick={() => carouselMove(false)} />
+                <NavigationButton onClick={() => carouselMove(true)} />
+            </div>
+
+            cardIndicate = <NavigationRange length={length}/>;
+        }
+        
+        content = (
+            dataArray
+                .reverse()
+                .map((year, index) =>
+                    <NavigationElement 
+                        key={index}
+                        year={year}
+                        images={data[year]}
+                    />
+                )
+        );
     }
 
     return (
-        <nav className={`gallrey-navigation ${addClass}`}>
-            { content }
+        <div className='navigation-wrapper'>
+            <nav className={`gallrey-navigation ${addClass}`}>
+                <ul 
+                    className={`navigation__list ${isWide}`}
+                    ref={navRef}
+                >
+                    { content }
+                </ul>
+            </nav>
             { buttons }
-        </nav>
+            { cardIndicate }
+        </div>
     );
 }
 

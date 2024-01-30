@@ -1,0 +1,33 @@
+.navigation__range {
+    position: absolute;
+    bottom: 19px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65%;
+    height: 1px;
+    background-color: currentColor;
+
+    >div {
+        width: 8px;
+        height: 8px;
+        border: 1px solid currentColor;
+        transform: rotate(45deg);
+        position: absolute;
+        top: -3px;
+    }
+}
+
+.navigation-range__item {
+    &.edge-item {
+        background-color: var(--main-color_light);
+    }
+    &.right-item {
+        left: 10%;
+    }
+    &.left-item {
+        right: 10%;
+    }
+    &.middle-item {
+        background-color: currentColor;
+    }
+}

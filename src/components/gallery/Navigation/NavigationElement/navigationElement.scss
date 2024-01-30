@@ -1,14 +1,5 @@
 @use '/src/scss/index.scss' as *;
 
-//@keyframes toLEft {
-//    from {
-//        transform: translateX(-50%) scale(.9) perspective(1000px) rotateY(-65deg);
-//    }
-//    to {
-//        transform: translateX(0) scale(.95) perspective(1000px) rotateY(-25deg);
-//    }
-//}
-
 .navigation__element {
     position: relative;
 
@@ -27,13 +18,6 @@
         height: 100%;
 
         margin: 0 8px;
-
-        //&.left-edge {
-        //    animation: toLEft .5s ease-out forwards;
-        //}
-        //&.right-edge {
-        //    transform: translateX(-5%) scale(.95) perspective(1000px) rotateY(25deg);
-        //}
     }
 
     @include desktop-hover {

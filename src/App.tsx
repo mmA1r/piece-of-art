@@ -30,9 +30,10 @@ const Gallery = () => {
         "2022": ['war', 'samurai', 'thoughts'],
         "2023": ['dragon', 'float', 'train'],
         "2024": ['azula'],
-        "2025": ['azula'],
-        "2026": ['azula'],
-        "2027": ['azula'],
+        "2025": ['violet'],
+        "2026": ['war'],
+        "2027": ['scarecrow'],
+        "2028": ['scarecrow'],
     }
 
     var routes = Object.keys(mockedData)
