@@ -1,8 +1,9 @@
-import { useRef, useEffect, useContext } from 'react';
-import { Modules } from '../../../main';
+import { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
+import NavigationMini from './NavigationMini/NavigationMini';
 
 import './header.scss';
-import { Link } from 'react-router-dom';
 
 const WaterSvg = () => <svg className='back-button__water-svg' viewBox="0 0 32 32" fill="none">
     <path d="M.35 16.27c2.95 5.76 10.24 4 17.96-.29 7.73-4.29 13-4.38 13.69.24-3.97-6.3-13.37 3.81-20.55 5.12-4.68.85-11.37.14-11.1-5.07Z"/>
@@ -12,15 +13,15 @@ const WaterSvg = () => <svg className='back-button__water-svg' viewBox="0 0 32 3
     <path d="M2.86346 23.6716C9.48787 27.4503 16.9183 23.2916 20.7271 19.7083C17.3475 24.5946 5.97485 31.2726 2.86346 23.6716Z"/>
 </svg>;
 
-const Header = () => {
+const Header = ({ location, list }: { location: string[]; list: string[] }) => {
     const headerRef = useRef<HTMLDivElement>(null);
-    const closeButtonRef = useRef<HTMLButtonElement>(null);
-    const mediator = useContext(Modules).mediator;
+    var navigation = <></>;
 
-    const selectEvent = mediator.getEventNames().SET_YEAR;
-
-    const setStateToDefault = () => {
-        mediator.call(selectEvent, '');
+    if(location.length > 2 && location[2].length > 0) {
+        const sortedList = list.filter(item => item !== location[2]);
+        const lastElement = sortedList.pop();
+        if (lastElement) { sortedList.unshift(lastElement); }
+        navigation = <NavigationMini list={sortedList} />
     }
 
     return(
@@ -37,6 +38,7 @@ const Header = () => {
                 </Link>
                 <span className='back-button__title'>intro</span>
             </div>
+            { navigation }
         </div>
     );
 }

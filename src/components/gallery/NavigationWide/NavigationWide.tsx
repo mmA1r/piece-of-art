@@ -1,19 +1,18 @@
 import { useRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import NavigationElement from './NavigationElement/NavigationElement';
 
-import './navigation.scss';
+import NavigationElement from './NavigationElement/NavigationElement';
 import NavigationButton from './NavigationButton/NavigationButton';
 import NavigationRange from './NavigationRange/NavigationRange';
 
-const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
+import './navigationWide.scss';
+
+const NavigationWide = ({ data }: { data: { [key: string]: string[] } }) => {
     const navRef = useRef<HTMLUListElement>(null);
-    const location = useLocation().pathname.split('/'); // make new Component that stick to header
     const [size, setsize] = useState(window.innerWidth);
 
     const dataArray = Object.keys(data);
     const length = dataArray.length;
-    var content: JSX.Element[] = [<></>];
     var buttons: JSX.Element = <></>;
     var cardIndicate = <></>;
     var addClass = '';
@@ -46,7 +45,7 @@ const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
 
             window.removeEventListener('resize', onResize);
         }
-    });
+    }, []);
 
     const onResize = () => {
         if(size <= 768 && window.innerWidth > 768) {
@@ -133,31 +132,16 @@ const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
         }
     }
 
+    if (length > 7 && size > 768) {
+        isWide = 'navigation__list_wide'
+        addClass = 'gallrey-navigation_wide';
 
-    if (location.length <= 2 || location.length <= 3 && location[2].length <= 0) {
-        if (length > 7 && window.innerWidth > 768) {
-            isWide = 'navigation__list_wide'
-            addClass = 'gallrey-navigation_wide';
+        buttons = <div className='navigation__button-wrapper'>
+            <NavigationButton onClick={() => carouselMove(false)} />
+            <NavigationButton onClick={() => carouselMove(true)} />
+        </div>
 
-            buttons = <div className='navigation__button-wrapper'>
-                <NavigationButton onClick={() => carouselMove(false)} />
-                <NavigationButton onClick={() => carouselMove(true)} />
-            </div>
-
-            cardIndicate = <NavigationRange length={length}/>;
-        }
-        
-        content = (
-            dataArray
-                .reverse()
-                .map((year, index) =>
-                    <NavigationElement 
-                        key={index}
-                        year={year}
-                        images={data[year]}
-                    />
-                )
-        );
+        cardIndicate = <NavigationRange length={length}/>;
     }
 
     return (
@@ -167,7 +151,17 @@ const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
                     className={`navigation__list ${isWide}`}
                     ref={navRef}
                 >
-                    { content }
+                    {
+                        dataArray
+                        .reverse()
+                        .map((year, index) =>
+                            <NavigationElement 
+                                key={index}
+                                year={year}
+                                images={data[year]}
+                            />
+                        )
+                    }
                 </ul>
             </nav>
             { buttons }
@@ -176,4 +170,4 @@ const Navigation = ({ data }: { data: { [key: string]: string[] } }) => {
     );
 }
 
-export default Navigation;
+export default NavigationWide;
