@@ -7,6 +7,14 @@ const NavigationMini = ({ list }: { list: string[] }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
+    var isScrollerClassName = '';
+    var isScrollButton = '';
+
+    if (list.length > 6) {
+        isScrollerClassName = 'mini-navigation__list_scroll';
+        isScrollButton = 'mini-navigation__button_on';
+    }
+
     const onClick = () => {
         const wrapper = wrapperRef.current;
         const button = buttonRef.current;
@@ -47,17 +55,17 @@ const NavigationMini = ({ list }: { list: string[] }) => {
     return <div ref={wrapperRef} className='mini-navigation-wrapper'>
         <nav className='mini-navigation'>
             <button 
-                className='mini-navigation__button navigation__button_prev'
+                className={`mini-navigation__button navigation__button_prev ${isScrollButton}`}
                 onClick={() => scrollNavigation(true)}
             />
             <ul 
                 ref={navRef} 
-                className='mini-navigation__list'
+                className={`mini-navigation__list ${isScrollerClassName}`}
             >
                 { itemList }
             </ul>
             <button 
-                className='mini-navigation__button navigation__button_next'
+                className={`mini-navigation__button navigation__button_next ${isScrollButton}`}
                 onClick={() => scrollNavigation(false)}
             />
         </nav>

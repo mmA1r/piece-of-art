@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import NavigationMini from './NavigationMini/NavigationMini';
 
@@ -13,7 +13,8 @@ const WaterSvg = () => <svg className='back-button__water-svg' viewBox="0 0 32 3
     <path d="M2.86346 23.6716C9.48787 27.4503 16.9183 23.2916 20.7271 19.7083C17.3475 24.5946 5.97485 31.2726 2.86346 23.6716Z"/>
 </svg>;
 
-const Header = ({ location, list }: { location: string[]; list: string[] }) => {
+const Header = ({ list }: { list: string[] }) => {
+    const location = useLocation().pathname.split('/');
     const headerRef = useRef<HTMLDivElement>(null);
     var navigation = <></>;
 

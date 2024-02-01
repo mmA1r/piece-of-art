@@ -58,7 +58,12 @@
     height: 100%;
     
     scroll-behavior: smooth;
-    overflow-x: hidden;
+
+    @include desktop_width {
+        &.mini-navigation__list_scroll {
+            overflow-x: hidden;
+        }
+    }
 
     @include phone_width {
         width: max-content;
@@ -103,30 +108,36 @@
 }
 
 .mini-navigation__button {
-    height: 40px;
-    min-width: 40px;
+    display: none;
 
-    margin: 4px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    color: var(--additional-color_light);
-
-    &::after {
-        content: '';
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-color: currentColor;
-
-        clip-path: polygon(35% 20%, 35% 0, 80% 50%, 35% 100%, 35% 80%, 60% 50%);
-    }
-
-    &:nth-child(1) {
-        &::after {
-            clip-path: polygon(65% 20%, 65% 0, 20% 50%, 65% 100%, 65% 80%, 40% 50%);
+    @include desktop_width {
+        &.mini-navigation__button_on {
+            height: 40px;
+            min-width: 40px;
+        
+            margin: 4px;
+        
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+            color: var(--additional-color_light);
+        
+            &::after {
+                content: '';
+                display: block;
+                width: 20px;
+                height: 20px;
+                background-color: currentColor;
+        
+                clip-path: polygon(35% 20%, 35% 0, 80% 50%, 35% 100%, 35% 80%, 60% 50%);
+            }
+        
+            &:nth-child(1) {
+                &::after {
+                    clip-path: polygon(65% 20%, 65% 0, 20% 50%, 65% 100%, 65% 80%, 40% 50%);
+                }
+            }
         }
     }
 

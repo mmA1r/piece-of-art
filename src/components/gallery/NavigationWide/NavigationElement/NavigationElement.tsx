@@ -19,7 +19,7 @@ const BackgroundImage = ({ src, index, additionalClass }: { src: string, index: 
             ref={ref}
             onError={onError}
             loading='lazy'
-            alt='link background'
+            aria-label='hidden'
         />
     );
 }

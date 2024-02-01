@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 
 import NavigationElement from './NavigationElement/NavigationElement';
 import NavigationButton from './NavigationButton/NavigationButton';
@@ -7,12 +7,13 @@ import NavigationRange from './NavigationRange/NavigationRange';
 
 import './navigationWide.scss';
 
-const NavigationWide = ({ data }: { data: { [key: string]: string[] } }) => {
+const NavigationWide = () => {
     const navRef = useRef<HTMLUListElement>(null);
+    const list: { [key: string]: string[] } = useOutletContext();
     const [size, setsize] = useState(window.innerWidth);
 
-    const dataArray = Object.keys(data);
-    const length = dataArray.length;
+    const listArray = Object.keys(list);
+    const length = listArray.length;
     var buttons: JSX.Element = <></>;
     var cardIndicate = <></>;
     var addClass = '';
@@ -23,7 +24,7 @@ const NavigationWide = ({ data }: { data: { [key: string]: string[] } }) => {
         if (nav) {
             const items = Array.from(nav.children) as HTMLLIElement[];
             if (length <= 7) {
-                items.forEach(item => {
+                items.forEach((item, index) => {
                     item.addEventListener('mouseenter', () => nav.classList.add('hovered'));
                     item.addEventListener('mouseleave', () => nav.classList.remove('hovered'));
                 });
@@ -152,13 +153,13 @@ const NavigationWide = ({ data }: { data: { [key: string]: string[] } }) => {
                     ref={navRef}
                 >
                     {
-                        dataArray
+                        listArray
                         .reverse()
                         .map((year, index) =>
                             <NavigationElement 
                                 key={index}
                                 year={year}
-                                images={data[year]}
+                                images={list[year]}
                             />
                         )
                     }
