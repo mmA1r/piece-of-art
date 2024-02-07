@@ -1,15 +1,25 @@
+@use '/src/scss/index.scss' as *;
+
 .gallery__content-wrapper {
-    position: absolute;
-    bottom: 0;
     left: 0;
     z-index: 0;
 
     display: flex;
     justify-content: center;
-    align-items: end;
     
     width: 100%;
-    height: calc(100% - 50px);
 
-    padding: 20px 14px;
+    padding: 72px 14px;
+
+    @include desktop_width {
+        bottom: 0;
+        height: 100%;
+        max-height: max-content;
+    }
+
+    @include phone_width {
+        top: 0;
+        height: max-content;
+        padding-top: 14px;
+    }
 }

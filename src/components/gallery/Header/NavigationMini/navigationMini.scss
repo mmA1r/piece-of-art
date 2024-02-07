@@ -23,7 +23,7 @@
 
         &.mini-navigation-wrapper_appear {
             >.mini-navigation {
-                transform: translate3d(0, -72px, 0);
+                transform: translate3d(0, -70px, 0);
                 width: 100%;
             }
         }
@@ -34,7 +34,6 @@
     position: relative;
 
     height: 100%;
-    width: 377px;
 
     display: flex;
     justify-content: center;
@@ -43,7 +42,7 @@
     @include phone_width {
         width: 280px;
         background-color: var(--main-color_light);
-        transform: translate3d(200%, -72px, 0);
+        transform: translate3d(200%, -70px, 0);
 
         transition: var(--gallery-transition);
     }
@@ -81,13 +80,14 @@
     color: var(--main-color_light);
     background-color: var(--additional-color_light);
 
-    border: 1px solid;
+    border: 1px solid transparent;
     border-radius: 25%;
 
     transition: var(--gallery-transition);
 
     @include desktop-hover {
-        background-color: var(--main-color_light);
+        background-color: transparent;
+        border: 1px solid;
         color: var(--additional-color_light);
     }
 }

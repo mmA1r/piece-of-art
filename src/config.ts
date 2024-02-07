@@ -7,7 +7,6 @@ export interface IConfig {
 }
 
 export enum Events {
-    SET_YEAR = 'SET_YEAR',
     CONTENT_LOADED = 'CONTENT_LOADED'
 }
 
@@ -16,7 +15,7 @@ export enum Triggers  {
 }
 
 export enum Sockets {
-
+    GET_GALLERY_IMAGES = 'GET_GALLERY_IMAGES'
 }
 
 class CONFIG implements IConfig {

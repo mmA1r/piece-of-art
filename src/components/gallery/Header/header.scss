@@ -6,19 +6,19 @@
     height: 72px;
     width: 100%;
 
-    background-color: #ffffff73;
 
     z-index: 1;
 
     @include desktop_width {
         top: 0;
-        border-bottom: 1px solid currentColor;
-        backdrop-filter: blur(2px);
+        backdrop-filter: blur(4px);
+        background-color: #ffffffd8;
     }
 
     @include phone_width {
         bottom: 0;
         border-top: 1px solid currentColor;
+        background-color: var(--main-color_light);
     }
 }
 

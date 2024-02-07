@@ -14,6 +14,8 @@ var mockedData: {[key: string]: string[]} = {
     "2023": ['dragon', 'float', 'train'],
     "2024": ['azula'],
     //"2025": ['violet'],
+    //"2026": ['war'],
+    //"2027": ['float'],
 }
 
 export const Gallery = () => {

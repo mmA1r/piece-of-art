@@ -24,7 +24,7 @@ const NavigationWide = () => {
         if (nav) {
             const items = Array.from(nav.children) as HTMLLIElement[];
             if (length <= 7) {
-                items.forEach((item, index) => {
+                items.forEach(item => {
                     item.addEventListener('mouseenter', () => nav.classList.add('hovered'));
                     item.addEventListener('mouseleave', () => nav.classList.remove('hovered'));
                 });
