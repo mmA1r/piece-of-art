@@ -26,8 +26,9 @@ const BackgroundImage = ({ src, index, additionalClass }: { src: string, index: 
 
 const NavigationElement = ({ year, images }: { year: string, images: string[] }) => {
     var adiitionalName: string = '';
+    const shuffled = images.slice().sort(() => 0.5 - Math.random()).slice(0, 3);
 
-    const background = images.map((image, index) => {
+    const background = shuffled.map((image, index) => {
         var addClass = '';
         if(images.length < 2) {
             addClass = 'navigation__background-image_standalone';
@@ -47,7 +48,7 @@ const NavigationElement = ({ year, images }: { year: string, images: string[] })
     return(
         <li className='navigation__element'>
             <Link
-                to={`/gallery/${year}`}
+                to={`year/${year}`}
                 className={`navigation__link ${adiitionalName}`}
             >
                 <span className='navigation__year'>{ year }</span>

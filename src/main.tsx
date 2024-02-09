@@ -7,10 +7,11 @@ import Server from './services/Server/Server.ts';
 import Mediator from './services/Mediator/Mediator.ts';
 import ImageStorage from './services/ImageStorage/ImageStorage.ts';
 //route components
-import { Main, mainLoader } from './components/main/Main.tsx';
-import { Gallery, galleryLoader  } from './components/gallery/Gallery.tsx';
+import Main from './components/main/Main.tsx';
+import Gallery from './components/gallery/Gallery.tsx';
 import NavigationWide from './components/gallery/NavigationWide/NavigationWide.tsx';
-import { ContentWrapper, contentLoader } from './components/gallery/ContentWrapper/ContentWrapper.tsx';
+import ContentWrapper from './components/gallery/ContentWrapper/ContentWrapper.tsx';
+
 //css
 import './index.scss';
 import './main.scss';
@@ -27,14 +28,17 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/">
             <Route index element={<Main/>} />
-            <Route path="main" element={<Main/>}/>
-            <Route path="gallery" element={<Gallery />}>
-                <Route index element={<NavigationWide />}/>
-                <Route 
-                    path=':category'
-                    element={<ContentWrapper />}
-                    loader={contentLoader}
-                />
+            <Route 
+                path="main" 
+                element={<Main/>}
+                loader={() => { server.getIntroImagesEmit(); return null; }}
+            />
+            <Route path="gallery" 
+                element={<Gallery />}
+                loader={() => { server.getGalleryImagesEmit(); return null; }}
+            >
+                <Route index element={<NavigationWide />}/> {/* index is "gallery/", so "gallery/year/..." it wont spawn */}
+                <Route path='year/:category' element={<ContentWrapper />} />
             </Route>
             <Route path="*" element={<div>notFound</div>}/>
         </Route>

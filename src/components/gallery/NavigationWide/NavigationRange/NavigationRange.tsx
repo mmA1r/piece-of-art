@@ -1,6 +1,6 @@
 import './navigationRange.scss';
 
-const NavigationRange = ({ length } : { length: number }) => {
+const NavigationRange = () => {
     // next time...
 
     return <div 

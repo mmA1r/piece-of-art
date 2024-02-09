@@ -44,7 +44,7 @@ const NavigationMini = ({ list }: { list: string[] }) => {
     const itemList = list.map((item, index) =>
         <li key={index} className='mini-navigation__item'>
             <Link 
-                to={item}
+                to={`year/${item}`}
                 className='mini-navigation__link'
             >
                 { item }

@@ -7,7 +7,8 @@ export interface IConfig {
 }
 
 export enum Events {
-    CONTENT_LOADED = 'CONTENT_LOADED'
+    GALLERY_IMAGES_LOADED = 'GALLERY_IMAGES_LOADED',
+    IMAGES_TITLES_CACHED = 'IMAGES_TITLES_CACHED'
 }
 
 export enum Triggers  {
@@ -15,7 +16,8 @@ export enum Triggers  {
 }
 
 export enum Sockets {
-    GET_GALLERY_IMAGES = 'GET_GALLERY_IMAGES'
+    GET_GALLERY_IMAGES = 'GET_GALLERY_IMAGES',
+    GET_INTRO_IMAGES = 'GET_INTRO_IMAGES'
 }
 
 class CONFIG implements IConfig {

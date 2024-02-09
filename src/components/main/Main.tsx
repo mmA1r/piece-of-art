@@ -7,7 +7,7 @@ const Intro = lazy(() => import('./Intro/Intro'));
 const Waterfall = lazy(() => import('./Waterfall/Waterfall'));
 const Footer = lazy(() =>  import('./Footer/Footer'));
 
-export const Main = () => <div className={"main"}>
+const Main = () => <div className={"main"}>
     <Suspense fallback={<Fallback />}>
         <Intro />
         <Waterfall />
@@ -15,6 +15,4 @@ export const Main = () => <div className={"main"}>
     </Suspense>
 </div>
 
-export const mainLoader = () => {
-    
-}
+export default Main;

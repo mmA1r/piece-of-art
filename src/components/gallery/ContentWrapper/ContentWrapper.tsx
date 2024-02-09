@@ -1,6 +1,7 @@
-import { useEffect, useState, useRef } from 'react';
-import { useParams, useNavigate, useNavigation, useLocation, useLoaderData } from 'react-router-dom';
+import { useEffect, useState, useRef, useContext } from 'react';
+import { useParams, useNavigate, useNavigation, useLocation, useLoaderData, useOutletContext } from 'react-router-dom';
 import ImagesColumn from './ImagesColumn/ImagesColumn';
+import { Modules } from '../../../main';
 
 import './contentWrapper.scss';
 
@@ -12,7 +13,7 @@ export const ContentFallBack = () => {
     );
 }
 
-export const ContentWrapper = () => {
+const ContentWrapper = () => {
     const params = useParams();
     const answer = useLoaderData();
     const navigation = useNavigation();
@@ -102,10 +103,4 @@ export const ContentWrapper = () => {
     );
 }
 
-export const contentLoader = async () => {
-    // Simulate an API fetch request with a delay
-    //await new Promise(resolve => setTimeout(resolve, 1000)); // Simulating a 10-second delay
-    
-    // Simulated data fetch
-    return { message: 'Data fetched successfully!' };
-}
+export default ContentWrapper;

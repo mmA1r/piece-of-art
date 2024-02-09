@@ -1,29 +1,53 @@
-import { useRef, useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
+import { useRef, useEffect, useState, useContext } from 'react';
 
 import NavigationElement from './NavigationElement/NavigationElement';
 import NavigationButton from './NavigationButton/NavigationButton';
 import NavigationRange from './NavigationRange/NavigationRange';
+import NavigationSkeleton from './NavigationSkeleton/NavigationSkeleton';
+
+import { Modules } from '../../../main';
 
 import './navigationWide.scss';
 
 const NavigationWide = () => {
     const navRef = useRef<HTMLUListElement>(null);
-    const list: { [key: string]: string[] } = useOutletContext();
     const [size, setsize] = useState(window.innerWidth);
+    const [ updater, setUpdater ] = useState<boolean>(false); // updater
+    const { mediator, imageStorage } = useContext(Modules);
 
-    const listArray = Object.keys(list);
-    const length = listArray.length;
+    var imagesArray = [];
+    var navigation = [<NavigationSkeleton key={0}/>];
     var buttons: JSX.Element = <></>;
     var cardIndicate = <></>;
     var addClass = '';
     var isWide = '';
 
+    const images = imageStorage.getImageTitles();
+    
+    if (images) {
+        imagesArray = Object.keys(images);
+        images["all"] = [];
+        navigation = imagesArray
+            .reverse()
+            .map((year, index) =>
+            <NavigationElement 
+                key={index}
+                year={year}
+                images={images[year]}
+            />);
+    }
+
+    const length = imagesArray.length;
+
     useEffect(() => {
         const nav = navRef.current;
+        const event = mediator.getEventNames().IMAGES_TITLES_CACHED;
+
+        mediator.subscribe(event, updateNavigation);
+
         if (nav) {
             const items = Array.from(nav.children) as HTMLLIElement[];
-            if (length <= 7) {
+            if (length <= 7 && images) {
                 items.forEach(item => {
                     item.addEventListener('mouseenter', () => nav.classList.add('hovered'));
                     item.addEventListener('mouseleave', () => nav.classList.remove('hovered'));
@@ -39,14 +63,23 @@ const NavigationWide = () => {
         window.addEventListener('resize', onResize);
 
         return () => {
+            
             if (length > 7 && size > 768) {
                 document.removeEventListener('wheel', onWheelMove);
                 document.removeEventListener('keydown', onKeyDownMove);
             }
 
+            mediator.unsubscribe(event, updateNavigation);
             window.removeEventListener('resize', onResize);
         }
     }, []);
+
+    function updateNavigation(list: { [key: string]: string[] }) {
+        const sortedList = Object.keys(list);
+        if (sortedList) {
+            setUpdater(!updater);
+        }
+    }
 
     const onResize = () => {
         if(size <= 768 && window.innerWidth > 768) {
@@ -142,27 +175,17 @@ const NavigationWide = () => {
             <NavigationButton onClick={() => carouselMove(true)} />
         </div>
 
-        cardIndicate = <NavigationRange length={length}/>;
+        cardIndicate = <NavigationRange/>;
     }
 
     return (
         <div className='navigation-wrapper'>
             <nav className={`gallrey-navigation ${addClass}`}>
-                <ul 
+                <ul
                     className={`navigation__list ${isWide}`}
                     ref={navRef}
                 >
-                    {
-                        listArray
-                        .reverse()
-                        .map((year, index) =>
-                            <NavigationElement 
-                                key={index}
-                                year={year}
-                                images={list[year]}
-                            />
-                        )
-                    }
+                    { navigation }
                 </ul>
             </nav>
             { buttons }

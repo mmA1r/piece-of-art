@@ -21,3 +21,7 @@
 @keyframes move-border {
     to { rotate: 360deg }
 }
+
+@keyframes skeleton-shine {
+	to { background-position: right -40px top 0; }
+}
