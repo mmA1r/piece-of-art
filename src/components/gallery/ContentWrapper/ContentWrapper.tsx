@@ -1,106 +1,84 @@
-import { useEffect, useState, useRef, useContext } from 'react';
-import { useParams, useNavigate, useNavigation, useLocation, useLoaderData, useOutletContext } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import ImagesColumn from './ImagesColumn/ImagesColumn';
-import { Modules } from '../../../main';
 
 import './contentWrapper.scss';
 
 export const ContentFallBack = () => {
     return (
         <div className='gallery-content__fallback'>
-            loader...
+            <div/><div/><div/><div/><div/><div/><div/><div/><div/><div/><div/>
         </div>
     );
 }
 
-const ContentWrapper = () => {
-    const params = useParams();
-    const answer = useLoaderData();
-    const navigation = useNavigation();
-    const location = useLocation();
+export const ContentWrapper = ({ images }: { images: { [key: string]: string[] } }) => {
+    const year = useParams();
     const navigate = useNavigate();
+    const [size, setSize] = useState(window.innerWidth);
 
-    const [size, setsize] = useState(window.innerWidth);
-
-    const columns: string[][] = [];
-
-    var size1300 = 1300;
-    var size968 = 968;
-    var size640 = 640;
-
-    // * send req out of params
-    // * if there`s pack of images in answer then ok
-    // otherwise navigate('/notFound');
-    // * it should be happening inside "contentLoader" function
-    // and "action" atribute of Route ??
-
-    // * for images make flex layout depends on window size and images number
-    // * for every image create component Content with image source as prop
-    // * inside Content create img with propper source
-    // * while it happening there should be skeleton for each image
-    // * if all ok in loading image then send it to ImageStorage through mediator
-    // and create <img> tag (and othe shit with img optimization)
-    // otherwise set warning that something wrong happened
-
-    //if (!mockedData[location.pathname.split('/')[2]]) {
-    //    navigate('/notFound');
-    //}
+    var content;
 
     useEffect(() => {
+        const currentYear = new Date().getFullYear(); // to make it faster, possible path are alredy establised
+        const posiblePaths = ['all'];                 // so there`s no need to wait server`s answer
+        for (let year = 2019; year <= currentYear; year++) {
+            posiblePaths.push(`${year}`);
+        }
+        if(!posiblePaths.includes(`${year.category}`)) {
+            navigate('/notFound');
+            return;
+        }
+
         window.addEventListener('resize', onResize);
 
         return () => {
             window.removeEventListener('resize', onResize);
         }
     }, [ size ]);
+    
+    const columns: string[][] = [];
 
+    var size1300 = 1300;
+    var size968 = 968;
+    var size640 = 640;
 
-    const onResize = () => {
+    if (year.category) { // create columns from images or just paste fallback component
+        if (images[year.category]) {
+            fillColumns(images[year.category]);
+        }
+        content = columns.map((column, index) => <ImagesColumn images={column} key={index}/>);
+    }
+
+    function onResize() {
         const width = window.innerWidth
         if(
             ((size <= size1300 && width > size1300) || (size > size1300 && width <= size1300)) ||
             ((size <= size968 && width > size968) || (size > size968 && width <= size968)) ||
             ((size <= size640 && width > size640) || (size > size640 && width <= size640))
         ) {
-            setsize(width);
+            setSize(width);
         }
     };
 
-    const mockedImages = [
-        'purple', 'fool', 'violet', 'azula', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 
-        'charm', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'purple', 'humility', 'purple', 
-        'dragon', 'purple', 'purple', 'purple', 'purple', 'purple'
-    ];
-
-    const distributeImages = (length: number) => {
+    function fillColumns(images: string[]) {
+        const width = window.innerWidth;
+        const length = (
+            (width > size1300) ? 4 :
+            (width <= size1300 && width > size968) ? 3 :
+            (width <= size968 && width > size640) ? 2 : 1
+        );
         for (var i = 0; i < length; i++) {
-            columns[i] = (mockedImages.filter((_, index) => index % length === length-(i+1)));
+            columns[i] = (images.filter((_, index) => index % length === length-(i+1)));
         }
-    }
-
-    const fillColumns = () => {
-        const width = window.innerWidth
-        if(width > size1300) { distributeImages(4); } 
-        else if (width <= size1300 && width > size968) { distributeImages(3); }
-        else if ( width <= size968 && width > size640) { distributeImages(2); }
-        else if (width <= size640) { distributeImages(1); }
-    }
-
-    fillColumns();
-
-    if (navigation.state === "loading") {
-        return <ContentFallBack />
     }
 
     return (
         <div 
             className={`gallery__content-wrapper`}
         >
-            {
-                columns.map((column, index) => <ImagesColumn images={column} key={index}/>)
-            }
+            { content }
         </div>
     );
 }
-
-export default ContentWrapper;

@@ -23,7 +23,7 @@ class ImageStorage {
                 .reverse()
                 .reduce((acc, arr) => acc.concat(arr), []);
             this.mediator.call(this.events.IMAGES_TITLES_CACHED, this.images);
-        }, 2000)
+        }, 2000);
     }
 
     public getImageTitles() {

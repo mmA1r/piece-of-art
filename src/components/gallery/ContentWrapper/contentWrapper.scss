@@ -1,25 +1,66 @@
 @use '/src/scss/index.scss' as *;
 
 .gallery__content-wrapper {
-    left: 0;
     z-index: 0;
 
     display: flex;
-    justify-content: center;
     
     width: 100%;
+    max-width: 1380px;
 
     padding: 72px 14px;
 
     @include desktop_width {
-        bottom: 0;
         height: 100%;
         max-height: max-content;
     }
 
     @include phone_width {
-        top: 0;
         height: max-content;
         padding-top: 14px;
+    }
+}
+
+.gallery-content__fallback {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    padding: 72px 14px;
+    
+    width: 100%;
+    max-width: 1380px;
+
+    @include desktop_width {
+        height: 100%;
+        max-height: max-content;
+    }
+
+    @include phone_width {
+        height: max-content;
+    }
+
+    >div {
+        width: min(100%, 270px);
+        height: 180px;
+        border-radius: 8px;
+
+        background-color: #f3f3f3;
+        background-image: linear-gradient(
+            90deg,
+            transparent 30%,
+            rgba(#fff, 0), 
+            rgba(#fff, 0.5),
+            rgba(#fff, 0),
+            transparent 50%
+        );
+
+        margin: 8px;
+        border-radius: 8px;
+
+        background-repeat: no-repeat;
+        background-position: left -100px top 0;
+
+        animation: skeleton-shine 1s ease infinite;
     }
 }

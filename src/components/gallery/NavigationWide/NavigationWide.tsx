@@ -1,49 +1,45 @@
-import { useRef, useEffect, useState, useContext } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import NavigationElement from './NavigationElement/NavigationElement';
 import NavigationButton from './NavigationButton/NavigationButton';
 import NavigationRange from './NavigationRange/NavigationRange';
-import NavigationSkeleton from './NavigationSkeleton/NavigationSkeleton';
-
-import { Modules } from '../../../main';
 
 import './navigationWide.scss';
 
-const NavigationWide = () => {
-    const navRef = useRef<HTMLUListElement>(null);
-    const [size, setsize] = useState(window.innerWidth);
-    const [ updater, setUpdater ] = useState<boolean>(false); // updater
-    const { mediator, imageStorage } = useContext(Modules);
+export const NavigationSkeleton = () => <div className='gallery-navigation-skeleton'>
+    <div className='gallery-navigation-skeleton__elem'/>
+    <div className='gallery-navigation-skeleton__elem'/>
+    <div className='gallery-navigation-skeleton__elem'/>
+    <div className='gallery-navigation-skeleton__elem'/>
+    <div className='gallery-navigation-skeleton__elem'/>
+</div>
 
-    var imagesArray = [];
-    var navigation = [<NavigationSkeleton key={0}/>];
+export const NavigationWide = ({ images }: { images: { [key: string]: string[] } }) => {
+    const navRef = useRef<HTMLUListElement>(null);
+    const [size, setSize] = useState(window.innerWidth);
+
     var buttons: JSX.Element = <></>;
     var cardIndicate = <></>;
     var addClass = '';
     var isWide = '';
 
-    const images = imageStorage.getImageTitles();
+    const imagesArray = Object.keys(images);
+    const shallowCopy = { ...images }
+    shallowCopy["all"] = [];
     
-    if (images) {
-        imagesArray = Object.keys(images);
-        images["all"] = [];
-        navigation = imagesArray
-            .reverse()
-            .map((year, index) =>
-            <NavigationElement 
-                key={index}
-                year={year}
-                images={images[year]}
-            />);
-    }
+    const navigation = imagesArray
+        .reverse()
+        .map((year, index) =>
+        <NavigationElement 
+            key={index}
+            year={year}
+            images={shallowCopy[year]}
+        />);
 
     const length = imagesArray.length;
 
     useEffect(() => {
         const nav = navRef.current;
-        const event = mediator.getEventNames().IMAGES_TITLES_CACHED;
-
-        mediator.subscribe(event, updateNavigation);
 
         if (nav) {
             const items = Array.from(nav.children) as HTMLLIElement[];
@@ -69,24 +65,13 @@ const NavigationWide = () => {
                 document.removeEventListener('keydown', onKeyDownMove);
             }
 
-            mediator.unsubscribe(event, updateNavigation);
             window.removeEventListener('resize', onResize);
         }
-    }, []);
-
-    function updateNavigation(list: { [key: string]: string[] }) {
-        const sortedList = Object.keys(list);
-        if (sortedList) {
-            setUpdater(!updater);
-        }
-    }
+    }, [ size ]);
 
     const onResize = () => {
-        if(size <= 768 && window.innerWidth > 768) {
-            setsize(window.innerWidth);
-        }
-        if(size > 768 && window.innerWidth <= 768) {
-            setsize(window.innerWidth);
+        if((size <= 768 && window.innerWidth > 768) || (size > 768 && window.innerWidth <= 768)) {
+            setSize(window.innerWidth);
         }
     };
 
@@ -193,5 +178,3 @@ const NavigationWide = () => {
         </div>
     );
 }
-
-export default NavigationWide;

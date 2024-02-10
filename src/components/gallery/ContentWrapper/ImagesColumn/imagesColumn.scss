@@ -1,12 +1,17 @@
+.gallery__images-column {
+    flex-grow: 1;
+    max-width: 400px;
+}
 .gallery__image-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 7px;
+    width: 100%;
+    padding: 8px;
 }
 
 .gallery__image {
-    width: 380px;
+    width: 100%;
     height: auto;
     border-radius: 10px;
 }

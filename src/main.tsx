@@ -9,8 +9,9 @@ import ImageStorage from './services/ImageStorage/ImageStorage.ts';
 //route components
 import Main from './components/main/Main.tsx';
 import Gallery from './components/gallery/Gallery.tsx';
-import NavigationWide from './components/gallery/NavigationWide/NavigationWide.tsx';
-import ContentWrapper from './components/gallery/ContentWrapper/ContentWrapper.tsx';
+import { NavigationWide, NavigationSkeleton  } from './components/gallery/NavigationWide/NavigationWide.tsx';
+import { ContentWrapper, ContentFallBack } from './components/gallery/ContentWrapper/ContentWrapper.tsx';
+import WrapperComponent from './components/WrapperComponent/WrapperComponent.tsx';
 
 //css
 import './index.scss';
@@ -24,6 +25,13 @@ const imageStorage = new ImageStorage({ mediator });
 
 export const Modules = createContext({ mediator, imageStorage, server });
 
+const galleryLoader = () => {
+    if (!imageStorage.getImageTitles()) {
+        server.getGalleryImagesEmit();
+    }
+    return null;
+}
+
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/">
@@ -35,10 +43,26 @@ const router = createBrowserRouter(
             />
             <Route path="gallery" 
                 element={<Gallery />}
-                loader={() => { server.getGalleryImagesEmit(); return null; }}
+                loader={() => galleryLoader()}
             >
-                <Route index element={<NavigationWide />}/> {/* index is "gallery/", so "gallery/year/..." it wont spawn */}
-                <Route path='year/:category' element={<ContentWrapper />} />
+                <Route 
+                    index                       /* index is "gallery/", so "gallery/year/..." wont spawn */
+                    element={
+                        <WrapperComponent 
+                            Component={NavigationWide}
+                            Fallback={NavigationSkeleton}
+                        />
+                    }
+                />
+                <Route 
+                    path='year/:category' 
+                    element={
+                        <WrapperComponent 
+                            Component={ContentWrapper}
+                            Fallback={ContentFallBack}
+                        />
+                    }
+                />
             </Route>
             <Route path="*" element={<div>notFound</div>}/>
         </Route>

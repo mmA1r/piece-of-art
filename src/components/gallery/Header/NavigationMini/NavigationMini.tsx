@@ -1,16 +1,23 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './navigationMini.scss';
 
-const NavigationMini = ({ list }: { list: string[] }) => {
+const NavigationMini = ({ images }: { images: { [key: string] :string[]} }) => {
+    const location = useLocation().pathname.split('/');
+
     const navRef = useRef<HTMLUListElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
+    const newList = Object.keys(images);
+    const sortedList = newList.filter(item => item !== location[3]);
+    const lastElement = sortedList.pop();
+    if (lastElement) { sortedList.unshift(lastElement); }
+
     var isScrollerClassName = '';
     var isScrollButton = '';
 
-    if (list.length > 6) {
+    if (sortedList.length > 6) {
         isScrollerClassName = 'mini-navigation__list_scroll';
         isScrollButton = 'mini-navigation__button_on';
     }
@@ -41,7 +48,7 @@ const NavigationMini = ({ list }: { list: string[] }) => {
         }
     }
 
-    const itemList = list.map((item, index) =>
+    const itemList = sortedList.map((item, index) =>
         <li key={index} className='mini-navigation__item'>
             <Link 
                 to={`year/${item}`}
